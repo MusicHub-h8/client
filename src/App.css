@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+.text-lobster {
+  font-family: 'Lobster', Arial, Helvetica, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card-recommended {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  padding: 8px;
+  display: flex;
+  min-width: 300px;
+  max-width: 344px;
+  height: 65px;
+  background-color: #80062b;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  border-radius: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.card-recommended img {
+  height: 50px;
+  width: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card-recommended p {
+  margin: 0;
+}
+
+.card-left {
+  display: flex;
+}
+
+.card-right {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: auto;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.card-name {
+  width: 80px;
+}
+
+.card-right-top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.card-right-bottom {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.btn-invite {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   color: white;
+  width: 60px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #72a8be;
+  outline: none;
+  border: none;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-invite:hover {
+  cursor: pointer;
+  background-color: #f3005d;
 }

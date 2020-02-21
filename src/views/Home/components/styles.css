@@ -1,13 +1,43 @@
-.home-btn-spotify {
-  padding: 1rem;
-  font-size: 1rem;
+.home-container {
   color: white;
-  background-color: #20d760;
-  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: auto;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+    url('../../../assets/home.jpg');
+  object-fit: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo {
+  color: rgb(255, 255, 255);
+}
+
+.home-sub-head {
+  color: #e2b8aa;
+  margin-bottom: 30px;
+}
+
+.home-btn-spotify {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #1eb954;
+  border-radius: 35px;
+  border: none;
   outline: none;
+  transition: 0.2s;
 }
 
 .home-btn-spotify:hover {
-  transition: ease-in-out 0.5s;
+  transition: ease-in-out 0.2s;
+  animation-direction: alternate;
   background-color: #39e676;
 }
