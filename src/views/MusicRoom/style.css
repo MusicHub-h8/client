@@ -1,0 +1,7 @@
+.musicroom-container {
+  margin-top: 2rem;
+  display: inline-flex;
+  padding: 1rem;
+  border: 1px black solid;
+  border-radius: 6px;
+}
