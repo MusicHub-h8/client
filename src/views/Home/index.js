@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../api/axiosInstance';
+import axios from '../../api/axiosInstance';
 import SpotifyLogin from 'react-spotify-login';
 import { Link } from 'react-router-dom';
 
@@ -24,14 +24,14 @@ const Home = () => {
 
   return (
     <div>
-      <h1>MusicHub</h1>
       <Link to='/dashboard'>Dashboard</Link>
+      <h1>MusicHub</h1>
       <SpotifyLogin
         clientId={process.env.REACT_APP_CLIENT_ID}
         redirectUri={process.env.REACT_APP_REDIRECT_URI}
         onSuccess={onSuccess}
         onFailure={onFailure}
-        className='btn-spotify'
+        className='home-btn-spotify'
       />
     </div>
   );

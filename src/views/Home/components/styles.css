@@ -1,0 +1,13 @@
+.home-btn-spotify {
+  padding: 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #20d760;
+  border-radius: 25px;
+  outline: none;
+}
+
+.home-btn-spotify:hover {
+  transition: ease-in-out 0.5s;
+  background-color: #39e676;
+}
