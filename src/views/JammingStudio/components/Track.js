@@ -21,17 +21,17 @@ export default function Track({ audioUrl, track }) {
   useEffect(() => {
     audio.on('load', () => {
       console.log(audio)
-      audio.play()
-      console.log(audio.duration())
-      console.log(audio.seek())
+      // audio.play()
+      // console.log(audio.duration())
+      // console.log(audio.seek())
     })
   }, [])
 
   // seekbar
   useEffect(() => {
-    setInterval(() => {
-      console.log((audio.seek() / audio.duration()) * 100)
-    }, 500)
+    // setInterval(() => {
+    //   console.log((audio.seek() / audio.duration()) * 100)
+    // }, 500)
   }, [])
 
   function toggleMute() {
@@ -57,8 +57,24 @@ export default function Track({ audioUrl, track }) {
   }
 
   return (
-    <div>
-      <div className='buttonsContainer'>
+    <div className='track'>
+      <div className='text-white'>
+        <div className='track-OuterVerticalWrapper'>
+          <div className='track-InnerVerticalWrapper'>
+            <input
+              className='track-verticalSlider'
+              type='range'
+              value={volume}
+              onChange={(event) => {
+                handleVolumeChange(event.target.value)
+              }}
+            />
+          </div>
+        </div>
+        <span>{volume}</span>
+      </div>
+
+      <div className=''>
         <button
           onClick={(event) => {
             toggleMute()
@@ -67,20 +83,10 @@ export default function Track({ audioUrl, track }) {
           mute
         </button>
       </div>
-      <div className='volumeContainer'>
+
+      <div className='text-white'>
         <input
-          className='volume-bar'
-          type='range'
-          value={volume}
-          onChange={(event) => {
-            handleVolumeChange(event.target.value)
-          }}
-        />
-        <span>{volume}</span>
-      </div>
-      <div className='panContainer'>
-        <input
-          className='pan-bar'
+          className=''
           type='range'
           value={panning}
           onChange={(event) => {
@@ -88,17 +94,6 @@ export default function Track({ audioUrl, track }) {
           }}
         />
         <span>{panning}</span>
-      </div>
-
-      <div className='progress' style={{ height: '3px' }}>
-        <div
-          className='progress-bar'
-          role='progressbar'
-          style={{ width: `${50}%` }}
-          aria-valuenow='25'
-          aria-valuemin='0'
-          aria-valuemax='100'
-        ></div>
       </div>
     </div>
   )

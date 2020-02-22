@@ -2,6 +2,7 @@ import { GET_MYROOMS } from '../actions/'
 
 const initialState = {
   myRooms: [],
+  activeRoom: {},
 }
 
 export default function roomReducers(state = initialState, action) {
