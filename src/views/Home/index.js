@@ -8,16 +8,13 @@ const Home = () => {
   const history = useHistory();
 
   const onSuccess = response => {
-    axios
-      .post(
-        '/users/login',
-        {},
-        {
-          headers: {
-            spotify_token: response.access_token,
-          },
-        }
-      )
+    axios({
+      method: 'POST',
+      url: '/users/login',
+      headers: {
+        spotify_token: response.access_token,
+      },
+    })
       .then(({ data }) => {
         localStorage.setItem('access_token', data.access_token);
         history.push('/dashboard');

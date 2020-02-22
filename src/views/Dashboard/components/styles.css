@@ -1,5 +1,6 @@
 .dash-container {
   display: flex;
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
 }
 
 .dash-side-bar {
@@ -8,15 +9,14 @@
   background-color: #0f2833;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 36px;
 }
 
 .dash-main {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 72rem;
+  width: 100vw;
   height: auto;
   color: white;
   background-color: #091d27;
@@ -28,22 +28,27 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  height: 600px;
+  margin-top: 2.5rem;
   transition: 0.5s ease-in-out;
 }
 
 .dash-nav {
   display: flex;
   flex-direction: column;
-  height: 600px;
+  margin-top: 2.5rem;
   font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
 }
 
 .nav-link {
   color: #72a8be;
+  transition: ease-in-out 0.3s;
 }
 
 .nav-link:hover {
+  color: #f3005d;
+}
+
+.text-reddish {
   color: #f3005d;
 }
 
@@ -62,4 +67,68 @@
 
 .dash-add-btn:hover {
   background-color: #f3005d;
+}
+
+.add-studio-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  color: black;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  top: 50%;
+  margin-top: -250px;
+  padding: 50px;
+}
+
+.input-form {
+  outline: none;
+  border: none;
+  width: 300px;
+  border-bottom: 1px solid black;
+  margin-bottom: 8px;
+}
+
+.submit-add-studio {
+  margin-top: 16px;
+}
+
+.card-studio {
+  height: 250px;
+  width: 250px;
+  color: #f3005d;
+  background-color: #193d4d;
+  transition: ease-in-out 0.5s;
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.card-studio:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #265468;
+}
+
+/* React transition group */
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
