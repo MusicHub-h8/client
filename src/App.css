@@ -13,8 +13,9 @@
   max-width: 344px;
   height: 65px;
   background-color: #80062b;
+  margin-top: 8px;
   margin-right: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   border-radius: 5px;
 }
 
@@ -65,6 +66,7 @@
   background-color: #72a8be;
   outline: none;
   border: none;
+  transition: ease-in-out 0.3s;
 }
 
 .btn-invite:hover {
