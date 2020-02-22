@@ -8,9 +8,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route path='/room'>
-          <About />
-        </Route> */}
+        <Route path='/room/:roomId'>
+          <h1>Test</h1>
+          {/* <JammingStudio /> */}
+        </Route>
         <Route path='/dashboard'>
           <DashboardView />
         </Route>

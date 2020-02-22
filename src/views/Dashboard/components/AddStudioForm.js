@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from '../../../api/axiosInstance';
+import { useDispatch } from 'react-redux';
+import { requestAddRoom } from '../../../store/actions';
 
 const AddStudioForm = () => {
+  const dispatch = useDispatch();
   const [musicTitle, setMusicTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -10,21 +12,13 @@ const AddStudioForm = () => {
     console.log(musicTitle);
     console.log(description);
     const access_token = localStorage.getItem('access_token');
-    axios({
-      method: 'POST',
-      url: '/rooms',
-      data: {
+    dispatch(
+      requestAddRoom({
         music_title: musicTitle,
         description,
-      },
-      headers: {
         access_token,
-      },
-    })
-      .then(({ data }) => {
-        console.log(data);
       })
-      .catch(console.log);
+    );
   };
 
   const handleChangeMusicTitle = event => {

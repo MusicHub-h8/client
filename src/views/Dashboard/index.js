@@ -3,6 +3,7 @@ import './components/styles.css';
 import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
 import Recommended from './components/Recommended';
 import Explore from './components/Explore';
+import MyStudio from './components/MyStudio';
 import AddStudioForm from './components/AddStudioForm';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -52,7 +53,6 @@ const Dashboard = () => {
     return;
   };
 
-  console.log(window.location.pathname.split('/'));
   return (
     <>
       <div className='dash-container'>
@@ -127,7 +127,7 @@ const Dashboard = () => {
                 <Explore />
               </Route>
               <Route path={`${path}/my-studios`}>
-                <h1>My Studios</h1>
+                <MyStudio />
               </Route>
             </Switch>
           </div>

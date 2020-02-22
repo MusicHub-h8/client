@@ -97,6 +97,22 @@
   margin-top: 16px;
 }
 
+.card-studio {
+  height: 250px;
+  width: 250px;
+  color: #f3005d;
+  background-color: #193d4d;
+  transition: ease-in-out 0.5s;
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.card-studio:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #265468;
+}
+
 /* React transition group */
 
 .example-enter {

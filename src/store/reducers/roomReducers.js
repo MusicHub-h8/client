@@ -1,17 +1,33 @@
-import { GET_MYROOMS } from '../actions/'
+import { GET_MYROOMS, ADD_ROOM } from '../actions/';
 
 const initialState = {
-  myRooms: [],
-}
+  myRooms: {
+    owned: [],
+    involved: [],
+  },
+  loading: false,
+  error: null,
+};
 
 export default function roomReducers(state = initialState, action) {
   switch (action.type) {
     case GET_MYROOMS:
       return {
         ...state,
-        states: action.payload,
-      }
+        myRooms: {
+          owned: action.payload.owned,
+          involved: action.payload.involved,
+        },
+      };
+    case ADD_ROOM:
+      return {
+        ...state,
+        myRooms: {
+          ...state.myRooms,
+          owned: [action.payload, ...state.myRooms.owned],
+        },
+      };
     default:
-      return state
+      return state;
   }
 }
