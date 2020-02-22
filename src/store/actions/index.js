@@ -7,30 +7,36 @@ export const SET_ERROR = 'SET_ERROR'
 export const GET_TRACKS = 'GET_TRACKS'
 export const GET_ROOMDETAILS = 'GET_ROOMDETAILS'
 
+export const ADD_TRACK = 'ADD_TRACK'
+
 // request => hit server
 // recieve => dispatch reducer
 
+export const setActiveRoom = (roomDetail) => {
+  return {
+    type: GET_ROOMDETAILS,
+    payload: roomDetail,
+  }
+}
+
 export const requestRoomDetail = (roomId) => {
+  const access_token = localStorage.getItem('access_token')
   return (dispatch) => {
     axios({
       method: 'GET',
       url: `/rooms/${roomId}`,
       headers: {
-        access_token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTUxMGUyYjRlNjY1NjcwMTYzMTU1YjkiLCJpYXQiOjE1ODIzNzU4OTN9.8WsGa9GOQIYObwB2phPuPhfqmnY_8MWeEEe8sJuXN2o',
+        access_token,
       },
     })
       .then(({ data }) => {
+        dispatch(setActiveRoom(data))
         console.log(data)
       })
       .catch((err) => {
         console.log(err.response.data)
       })
   }
-}
-
-export const requestTracks = () => {
-  axios({})
 }
 
 export const getRooms = (rooms) => {

@@ -14,15 +14,18 @@ import PlaybackControl from './components/PlaybackControl'
 export default function JammingStudio() {
   const { roomId } = useParams()
   const dispatch = useDispatch()
-  const tracks = [
-    'https://storage.googleapis.com/musichub/1901_gtr1.mp3',
-    'https://storage.googleapis.com/musichub/1901_drumsleft.mp3',
-    // 'https://storage.googleapis.com/musichub/1901_leadvox.mp3',
-  ]
+
+  // const tracks = [
+  //   'https://storage.googleapis.com/musichub/1901_gtr1.mp3',
+  //   'https://storage.googleapis.com/musichub/1901_drumsleft.mp3',
+  //   // 'https://storage.googleapis.com/musichub/1901_leadvox.mp3',
+  // ]
   useEffect(() => {
-    console.log(roomId)
     dispatch(requestRoomDetail(roomId))
-  }, [])
+  }, [dispatch, roomId])
+
+  const roomDetail = useSelector((state) => state.roomReducer.activeRoom.detail)
+  const tracks = useSelector((state) => state.roomReducer.activeRoom.tracks)
 
   return (
     <div className='studio-Container'>

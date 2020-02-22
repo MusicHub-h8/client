@@ -1,4 +1,4 @@
-import { GET_MYROOMS, ADD_ROOM } from '../actions/'
+import { GET_MYROOMS, ADD_ROOM, GET_ROOMDETAILS } from '../actions/'
 
 const initialState = {
   myRooms: {
@@ -7,11 +7,18 @@ const initialState = {
   },
   loading: false,
   error: null,
-  activeRoom: {},
+  activeRoom: {
+    tracks: [],
+  },
 }
 
 export default function roomReducers(state = initialState, action) {
   switch (action.type) {
+    case GET_ROOMDETAILS:
+      return {
+        ...state,
+        activeRoom: action.payload,
+      }
     case GET_MYROOMS:
       return {
         ...state,
