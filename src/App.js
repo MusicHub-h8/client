@@ -1,16 +1,16 @@
-import React from 'react';
-import './App.css';
-import HomeView from './views/Home';
-import DashboardView from './views/Dashboard';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import './App.css'
+import HomeView from './views/Home'
+import DashboardView from './views/Dashboard'
+import JammingStudio from './views/JammingStudio'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path='/room/:roomId'>
-          <h1>Test</h1>
-          {/* <JammingStudio /> */}
+          <JammingStudio />
         </Route>
         <Route path='/dashboard'>
           <DashboardView />
@@ -20,7 +20,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

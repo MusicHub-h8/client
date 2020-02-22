@@ -1,0 +1,62 @@
+.studio-HeaderContainer {
+  padding: 2rem;
+  background-color: #0f2833;
+}
+.studio-heading {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+.form-container {
+  display: flex;
+}
+.form-instrument {
+  flex-basis: 20%;
+  margin-right: 10px;
+}
+.form-upload {
+  flex: 6;
+}
+.studio-Container {
+  height: 100vh;
+  background-color: #091d27;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.studio-Main {
+  padding: 2rem 2rem 0 2rem;
+}
+
+/* TRACK SECTIONS */
+.track-VolumeContainer {
+}
+.track-OuterVerticalWrapper {
+  display: table;
+  margin-right: 0;
+}
+.track-InnerVerticalWrapper {
+  padding: 50% 0;
+  height: 0;
+}
+.track-verticalSlider {
+  display: block;
+  transform-origin: top left;
+  /* Note: for a CLOCKWISE rotation, use the commented-out
+     transform instead of this one. */
+  transform: rotate(-90deg) translate(-100%);
+  /* transform: rotate(90deg) translate(0, -100%); */
+  margin-top: -50%;
+
+  /* Not vital, but possibly a good idea if the element you're rotating contains
+     text and you want a single long vertical line of text and the pre-rotation
+     width of your element is small enough that the text wraps: */
+  white-space: nowrap;
+}
+
+.playback-container {
+  align-self: center;
+  margin-bottom: 2rem;
+}
