@@ -30,12 +30,19 @@ export const requestAddTrack = (trackInfo) => {
     axios
       .post(url, formData, config)
       .then(({ data }) => {
-        console.log(data)
+        console.log('sukses upload!')
+        dispatch(addTrack(data))
       })
       .catch((err) => {
         console.log('---------------------------------')
         console.log(err.response)
       })
+  }
+}
+export const addTrack = (trackDetail) => {
+  return {
+    type: ADD_TRACK,
+    payload: trackDetail,
   }
 }
 
