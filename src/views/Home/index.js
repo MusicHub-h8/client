@@ -8,6 +8,7 @@ const Home = () => {
   const history = useHistory();
 
   const onSuccess = response => {
+    console.log(response);
     axios({
       method: 'POST',
       url: '/users/login',

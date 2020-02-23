@@ -73,3 +73,7 @@
   cursor: pointer;
   background-color: #f3005d;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

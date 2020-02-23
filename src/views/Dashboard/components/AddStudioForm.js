@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { requestAddRoom } from '../../../store/actions';
 
-const AddStudioForm = () => {
+const AddStudioForm = props => {
   const dispatch = useDispatch();
   const [musicTitle, setMusicTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const onSubmitAddStudio = event => {
     event.preventDefault();
-    console.log(musicTitle);
-    console.log(description);
     const access_token = localStorage.getItem('access_token');
     dispatch(
       requestAddRoom({
@@ -31,6 +29,7 @@ const AddStudioForm = () => {
 
   return (
     <div className='add-studio-form'>
+      <span onClick={props.handleShowForm}>X</span>
       <h1>Add Studio</h1>
       <form action='POST' onSubmit={onSubmitAddStudio}>
         <label htmlFor='musicTitle'>Music Title</label>
