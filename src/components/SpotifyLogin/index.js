@@ -19,7 +19,7 @@ class SpotifyLogin extends Component {
 
   static defaultProps = {
     buttonText: 'Sign in with Spotify',
-    scope: 'user-read-private user-top-read',
+    scope: 'user-read-private user-top-read user-read-email',
     onRequest: () => {},
     onSuccess: () => {},
     onFailure: () => {},

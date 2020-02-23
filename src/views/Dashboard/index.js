@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { requestRooms, setLoading } from '../../store/actions';
 import './components/styles.css';
-import { Link, Switch, Route, useRouteMatch } from 'react-router-dom';
+import {
+  Link,
+  Switch,
+  Route,
+  useRouteMatch,
+  useHistory,
+} from 'react-router-dom';
 import Recommended from './components/Recommended';
 import Explore from './components/Explore';
 import MyStudio from './components/MyStudio';
+import Notifications from './components/Notifications';
 import AddStudioForm from './components/AddStudioForm';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Dashboard = () => {
+  const history = useHistory();
   const [showForm, setShowForm] = useState(false);
   const { url, path } = useRouteMatch();
+
+  const dispatch = useDispatch();
+  const myRooms = useSelector(state => state.roomReducer.myRooms);
+  const loading = useSelector(state => state.roomReducer.loading);
+  const error = useSelector(state => state.roomReducer.error);
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(requestRooms());
+  }, [dispatch]);
+
   const addStudioForm = () => {
     if (showForm) {
-      return <AddStudioForm />;
+      return <AddStudioForm handleShowForm={handleShowForm} />;
     }
     return;
   };
@@ -53,6 +74,10 @@ const Dashboard = () => {
     return;
   };
 
+  const userLogout = () => {
+    localStorage.clear();
+    history.push('/');
+  };
   return (
     <>
       <div className='dash-container'>
@@ -105,9 +130,32 @@ const Dashboard = () => {
           </div>
         </div>
         <main className='dash-main'>
-          <button className='dash-add-btn' onClick={handleShowForm}>
-            Add Studio
-          </button>
+          <div className='container-btn'>
+            <button className='dash-add-btn' onClick={handleShowForm}>
+              Add Studio
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div
+                className='cursor-pointer'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  height: '30px',
+                  width: '25px',
+                  position: 'relative',
+                  marginRight: '2rem',
+                }}
+              >
+                <Link to={`${url}/notifications`}>
+                  <i className='fas fa-circle'></i>
+                  <i className='fas fa-bell'></i>
+                </Link>
+              </div>
+              <button className='btn-logout' onClick={() => userLogout()}>
+                Logout
+              </button>
+            </div>
+          </div>
           <ReactCSSTransitionGroup
             transitionName='example'
             transitionEnterTimeout={500}
@@ -127,7 +175,11 @@ const Dashboard = () => {
                 <Explore />
               </Route>
               <Route path={`${path}/my-studios`}>
-                <MyStudio />
+                <MyStudio myRooms={myRooms} loading={loading} error={error} />
+              </Route>
+              <Route path={`${path}/notifications`}>
+                <h1>Notifications</h1>
+                <Notifications />
               </Route>
             </Switch>
           </div>

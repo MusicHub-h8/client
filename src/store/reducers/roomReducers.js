@@ -1,4 +1,11 @@
-import { GET_MYROOMS, ADD_ROOM, GET_ROOMDETAILS, ADD_TRACK } from '../actions/'
+import {
+  GET_MYROOMS,
+  ADD_ROOM,
+  GET_ROOMDETAILS,
+  ADD_TRACK,
+  SET_LOADING,
+  SET_ERROR,
+} from '../actions/';
 
 const initialState = {
   myRooms: {
@@ -10,7 +17,7 @@ const initialState = {
   activeRoom: {
     tracks: [],
   },
-}
+};
 
 export default function roomReducers(state = initialState, action) {
   switch (action.type) {
@@ -18,7 +25,7 @@ export default function roomReducers(state = initialState, action) {
       return {
         ...state,
         activeRoom: action.payload,
-      }
+      };
     case GET_MYROOMS:
       return {
         ...state,
@@ -26,7 +33,7 @@ export default function roomReducers(state = initialState, action) {
           owned: action.payload.owned,
           involved: action.payload.involved,
         },
-      }
+      };
     case ADD_TRACK:
       return {
         ...state,
@@ -34,7 +41,7 @@ export default function roomReducers(state = initialState, action) {
           detail: state.activeRoom.detail,
           tracks: [...state.activeRoom.tracks, action.payload],
         },
-      }
+      };
     case ADD_ROOM:
       return {
         ...state,
@@ -42,8 +49,18 @@ export default function roomReducers(state = initialState, action) {
           ...state.myRooms,
           owned: [action.payload, ...state.myRooms.owned],
         },
-      }
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      };
     default:
-      return state
+      return state;
   }
 }

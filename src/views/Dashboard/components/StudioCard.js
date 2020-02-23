@@ -15,7 +15,7 @@ const StudioCard = props => {
       </p>
       <p>{description}</p>
       <p>{roomOwner}</p>
-      <p>Owned</p>
+      {props.ownership ? <p>Owned</p> : <p>Involved</p>}
     </div>
   );
 };
