@@ -4,12 +4,76 @@ export const GET_MYROOMS = 'GET_MYROOMS';
 export const ADD_ROOM = 'ADD_ROOM';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_ERROR = 'SET_ERROR';
+export const GET_TRACKS = 'GET_TRACKS';
+export const GET_ROOMDETAILS = 'GET_ROOMDETAILS';
 export const SET_RECOMMENDED_USERS = 'SET_RECOMMENDED_USERS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const DELETE_INVITE = 'DELETE_INVITES';
 
+export const ADD_TRACK = 'ADD_TRACK';
+
 // request => hit server
 // recieve => dispatch reducer
+
+export const requestAddTrack = trackInfo => {
+  const access_token = localStorage.getItem('access_token');
+  const { instrument, selectedFile, roomId } = trackInfo;
+  return dispatch => {
+    const url = `/tracks/${roomId}`;
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        access_token,
+      },
+    };
+    let formData = new FormData();
+    formData.append('instrument', instrument);
+    formData.append('track', selectedFile);
+    console.log(formData);
+    axios
+      .post(url, formData, config)
+      .then(({ data }) => {
+        console.log('sukses upload!');
+        dispatch(addTrack(data));
+      })
+      .catch(err => {
+        console.log('---------------------------------');
+        console.log(err.response);
+      });
+  };
+};
+export const addTrack = trackDetail => {
+  return {
+    type: ADD_TRACK,
+    payload: trackDetail,
+  };
+};
+
+export const setActiveRoom = roomDetail => {
+  return {
+    type: GET_ROOMDETAILS,
+    payload: roomDetail,
+  };
+};
+
+export const requestRoomDetail = roomId => {
+  const access_token = localStorage.getItem('access_token');
+  return dispatch => {
+    axios({
+      method: 'GET',
+      url: `/rooms/${roomId}`,
+      headers: {
+        access_token,
+      },
+    })
+      .then(({ data }) => {
+        dispatch(setActiveRoom(data));
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      });
+  };
+};
 
 export const getRooms = rooms => {
   return {
