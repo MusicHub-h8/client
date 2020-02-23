@@ -12,6 +12,40 @@ export const ADD_TRACK = 'ADD_TRACK'
 // request => hit server
 // recieve => dispatch reducer
 
+export const requestAddTrack = (trackInfo) => {
+  const access_token = localStorage.getItem('access_token')
+  const { instrument, selectedFile, roomId } = trackInfo
+  return (dispatch) => {
+    const url = `/tracks/${roomId}`
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        access_token,
+      },
+    }
+    let formData = new FormData()
+    formData.append('instrument', instrument)
+    formData.append('track', selectedFile)
+    console.log(formData)
+    axios
+      .post(url, formData, config)
+      .then(({ data }) => {
+        console.log('sukses upload!')
+        dispatch(addTrack(data))
+      })
+      .catch((err) => {
+        console.log('---------------------------------')
+        console.log(err.response)
+      })
+  }
+}
+export const addTrack = (trackDetail) => {
+  return {
+    type: ADD_TRACK,
+    payload: trackDetail,
+  }
+}
+
 export const setActiveRoom = (roomDetail) => {
   return {
     type: GET_ROOMDETAILS,
@@ -31,7 +65,6 @@ export const requestRoomDetail = (roomId) => {
     })
       .then(({ data }) => {
         dispatch(setActiveRoom(data))
-        console.log(data)
       })
       .catch((err) => {
         console.log(err.response.data)
