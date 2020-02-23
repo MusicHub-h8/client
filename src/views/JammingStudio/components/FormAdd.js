@@ -1,15 +1,38 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { requestAddTrack } from '../../../store/actions'
+
 export default function FormAdd() {
+  const roomDetail = useSelector((state) => state.roomReducer.activeRoom.detail)
+
   const [instrument, setInstrument] = useState('')
+  const [selectedFile, setSelectedFile] = useState({})
   const dispatch = useDispatch()
 
-  const handleFileUpload = (selectedFile) => {}
+  const handleFileUpload = (selectedFile) => {
+    setSelectedFile(selectedFile[0])
+  }
   const handleInstrumentInput = (input) => {
     setInstrument(input)
   }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const roomId = roomDetail._id
+    const trackInfo = {
+      roomId,
+      instrument,
+      selectedFile,
+    }
+    dispatch(requestAddTrack(trackInfo))
+  }
   return (
-    <form className='form-container'>
+    <form
+      className='form-container'
+      onSubmit={(event) => {
+        handleSubmit(event)
+      }}
+    >
       <input
         value={instrument}
         onChange={(event) => {
@@ -27,11 +50,11 @@ export default function FormAdd() {
           className='custom-file-input'
           id='customFile'
         />
-        <label className='custom-file-label' for='customFile'>
-          Add new Track
+        <label className='custom-file-label'>
+          {selectedFile.name ? selectedFile.name : 'add track'}
         </label>
       </div>
-      <button className='dash-add-btn'>Submit</button>
+      <input type='Submit' className='dash-add-btn' />
     </form>
   )
 }
