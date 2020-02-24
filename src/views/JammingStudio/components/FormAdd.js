@@ -49,6 +49,7 @@ export default function FormAdd() {
           type='file'
           className='custom-file-input'
           id='customFile'
+          accept='.mp3, .mp4, .ogg, .wav, .flac'
         />
         <label className='custom-file-label'>
           {selectedFile.name ? selectedFile.name : 'add track'}
