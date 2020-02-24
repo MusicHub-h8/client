@@ -10,6 +10,10 @@
   display: flex;
   flex-direction: column;
   padding: 36px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .dash-main {
@@ -22,6 +26,7 @@
   background-color: #091d27;
   padding: 36px;
   padding-bottom: 0;
+  margin-left: 18rem;
 }
 
 .dash-content {
@@ -29,7 +34,8 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: flex-start;
-  margin-top: 2.5rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
   transition: 0.5s ease-in-out;
 }
 
@@ -135,7 +141,15 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  z-index: 1;
+  background-color: #091d27;
+  padding-left: 22rem;
+  padding-right: 4rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
 }
+/* #091d27 */
 
 .btn-logout {
   width: 100px;

@@ -1,13 +1,12 @@
 .studio-HeaderContainer {
-  padding: 2rem;
+  padding: 1rem;
+  min-height: 5rem;
   background-color: #0f2833;
 }
 .studio-heading {
   display: flex;
   justify-content: space-between;
-  flex: 1;
-  flex-direction: row;
-  margin-bottom: 1rem;
+  align-items: center;
 }
 .playerAvaContainer {
   display: flex;
@@ -20,6 +19,7 @@
 }
 .form-container {
   display: flex;
+  padding-top: 1rem;
 }
 .form-instrument {
   flex-basis: 20%;

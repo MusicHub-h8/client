@@ -139,38 +139,38 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-        <main className='dash-main'>
-          <div className='container-btn'>
-            <button className='dash-add-btn' onClick={handleShowForm}>
-              Add Studio
-            </button>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div
-                className='cursor-pointer'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '30px',
-                  width: '25px',
-                  position: 'relative',
-                  marginRight: '2rem',
-                }}
-              >
-                <Link to={`${url}/notifications`}>
-                  <i className='fas fa-circle'></i>
-                  <i className='fas fa-bell'></i>
-                </Link>
-              </div>
-              <img
-                src={currentUser.avatar}
-                alt='User Avatar'
-                style={{ height: '40px', marginRight: '2rem' }}
-              />
-              <button className='btn-logout' onClick={() => userLogout()}>
-                Logout
-              </button>
+        <div className='container-btn'>
+          <button className='dash-add-btn' onClick={handleShowForm}>
+            Add Studio
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              className='cursor-pointer'
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                height: '30px',
+                width: '25px',
+                position: 'relative',
+                marginRight: '2rem',
+              }}
+            >
+              <Link to={`${url}/notifications`}>
+                <i className='fas fa-circle'></i>
+                <i className='fas fa-bell'></i>
+              </Link>
             </div>
+            <img
+              src={currentUser.avatar}
+              alt='User Avatar'
+              style={{ height: '40px', marginRight: '2rem' }}
+            />
+            <button className='btn-logout' onClick={() => userLogout()}>
+              Logout
+            </button>
           </div>
+        </div>
+        <main className='dash-main'>
           <ReactCSSTransitionGroup
             transitionName='example'
             transitionEnterTimeout={500}
