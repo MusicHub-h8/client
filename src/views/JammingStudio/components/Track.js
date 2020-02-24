@@ -1,84 +1,95 @@
-import React, { useState, useEffect } from 'react'
-import { Howl, Howler } from 'howler'
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { requestDeleteTrack, removeTrack } from '../../../store/actions';
+import { Howl, Howler } from 'howler';
 
-import 'rc-slider/assets/index.css'
-import './style.css'
+import 'rc-slider/assets/index.css';
+import './style.css';
 
-import Slider from 'rc-slider'
+import Slider from 'rc-slider';
 
 export default function Track({ audioUrl, track }) {
-  const [volume, setVolume] = useState(75)
-  const [isMuted, setMuted] = useState(false)
-  const [panning, setPanning] = useState(50)
-  const [seek, setSeek] = useState(0)
+  const dispatch = useDispatch();
+  const [volume, setVolume] = useState(75);
+  const [isMuted, setMuted] = useState(false);
+  const [panning, setPanning] = useState(50);
+  const [seek, setSeek] = useState(0);
 
   const [audio, setAudio] = useState(
     new Howl({
       src: [track.file_path],
       onplay: () => {
-        console.log(track.file_path, 'is playing')
+        console.log(track.file_path, 'is playing');
       },
     })
-  )
+  );
 
   useEffect(() => {
-    console.log(track)
     audio.on('load', () => {
-      console.log(audio)
-      audio.play()
+      // console.log(audio)
+      // audio.play()
       // console.log(audio.duration())
       // console.log(audio.seek())
-    })
+    });
     return () => {
-      audio.stop()
-    }
-  }, [])
+      audio.stop();
+    };
+  }, []);
 
   function toggleMute() {
-    setMuted(!isMuted)
-    console.log(audio.volume)
+    setMuted(!isMuted);
+    console.log(audio.volume);
     if (isMuted) {
-      audio.volume(volume / 100)
+      audio.volume(volume / 100);
     } else {
-      audio.volume(0)
+      audio.volume(0);
     }
   }
 
   function handleVolumeChange(volume) {
-    audio.volume(volume / 100)
-    setVolume(volume)
+    audio.volume(volume / 100);
+    setVolume(volume);
   }
 
   // pan the track to right or left channel
   function handlePanBar(panSliderValue) {
-    const panValue = (panSliderValue - 50) / 50
-    setPanning(panSliderValue)
-    audio.stereo(panValue)
+    const panValue = (panSliderValue - 50) / 50;
+    setPanning(panSliderValue);
+    audio.stereo(panValue);
   }
 
   const sliderStyle = {
-    height: 300,
-  }
+    height: '12rem',
+  };
   const trackStyle = [
     {
       backgroundColor: '#f3005d',
     },
-  ]
+  ];
   const handleStyle = [
     {
       // width: '30px',
       // height: '30px',
     },
-  ]
+  ];
   const railStyle = {
     backgroundColor: '#72a8be',
-  }
+  };
+
+  const handleDelete = () => {
+    dispatch(requestDeleteTrack(track._id));
+  };
 
   return (
     <div className='track'>
       <div className='track-label text-white'>
         <span>{track.instrument}</span>
-        <i class='fas fa-trash removeIcon'></i>
+        <i
+          class='fas fa-trash removeIcon'
+          onClick={() => {
+            handleDelete();
+          }}
+        ></i>
       </div>
 
       <div className='volume-container text-white'>
@@ -99,16 +110,16 @@ export default function Track({ audioUrl, track }) {
         <div className='track-btn-group'>
           <div
             className={isMuted ? 'track-btn track-btn-active' : 'track-btn'}
-            onClick={(event) => {
-              toggleMute()
+            onClick={event => {
+              toggleMute();
             }}
           >
             <span>M</span>
           </div>
           <div
             className='track-btn'
-            onClick={(event) => {
-              toggleMute()
+            onClick={event => {
+              toggleMute();
             }}
           >
             <span>S</span>
@@ -124,5 +135,5 @@ export default function Track({ audioUrl, track }) {
         />
       </div>
     </div>
-  )
+  );
 }
