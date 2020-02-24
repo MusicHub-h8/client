@@ -6,9 +6,14 @@ import {
   DELETE_INVITE,
 } from '../actions';
 
+const currentUserOnLocalStorage = JSON.parse(
+  localStorage.getItem('currentUser')
+);
+
 const initialState = {
-  currentUser: {
+  currentUser: currentUserOnLocalStorage || {
     pendingInvites: [],
+    instruments: [],
   },
   recommendedUsers: [],
   loading: false,
