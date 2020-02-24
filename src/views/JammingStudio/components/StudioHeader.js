@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import FormAdd from './FormAdd'
 
 export default function StudioHeader() {
+  const [showForm, setShowForm] = useState(false)
   const history = useHistory()
 
   const handleGoBack = () => {
     history.goBack()
+  }
+
+  const toggleForm = () => {
+    setShowForm(!showForm)
+    console.log(showForm)
   }
 
   return (
@@ -22,11 +28,18 @@ export default function StudioHeader() {
         </button>
         <div className='studio-heading'>
           <div className='leftSide'>
-            <button className='dash-add-btn'>Add Track</button>
+            <button
+              className='dash-add-btn'
+              onClick={(event) => {
+                toggleForm()
+              }}
+            >
+              Add Track
+            </button>
           </div>
           <div className='rightSide'>test</div>
         </div>
-        <FormAdd />
+        {showForm && <FormAdd />}
       </div>
     </>
   )
