@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { GiftedChat } from 'react-web-gifted-chat'
-import firebase from 'firebase'
-import Button from '@material-ui/core/Button'
-import Avatar from '@material-ui/core/Avatar'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import ListItemText from '@material-ui/core/ListItemText'
-import Typography from '@material-ui/core/Typography'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
+import React, { Component } from "react";
+import { GiftedChat } from "react-web-gifted-chat";
+import firebase from "firebase";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -17,73 +17,62 @@ const config = {
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDER,
-}
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDER
+};
 if (!firebase.apps.length) {
-  firebase.initializeApp(config)
+  firebase.initializeApp(config);
 }
 
 export default class ChatRoom extends Component {
   // ++++++++ di state chatUser kalian hrs set state dgn data user yg lagi login ya
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       messages: [],
       user: {},
       chatUser: {
-        avatar: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/cat-455-896812.png',
-        id: 'cbba1',
-        name: 'cat',
-      },
-      // avatar: 'https://cdn.iconscout.com/icon/premium/png-256-thumb/cat-455-896812.png',
-      avatar: this.props.avatar,
-      // id: this.props._id,
-      // name: this.props.display_name,
-    }
+        avatar: this.props.currentUser.user.avatar,
+        id: this.props.currentUser.user._id,
+        name: this.props.currentUser.user.display_name
+      }
+    };
   }
 
   componentDidMount() {
-    this.loadMessages()
+    console.log(this.props, "ini props");
+    this.loadMessages();
   }
 
   loadMessages() {
-    const callback = (snap) => {
-      const message = snap.val()
-      message.id = snap.key
-      const { messages } = this.state
-      messages.push(message)
-      this.setState({ messages })
-    }
+    const callback = snap => {
+      const message = snap.val();
+      message.id = snap.key;
+      const { messages } = this.state;
+      messages.push(message);
+      this.setState({ messages });
+    };
     firebase
       .database()
-      .ref('/messages/')
-      .orderByChild('roomId')
-      // .equalTo(this.props.match.params.roomId)
-      .equalTo('5e53444f8531bb11fed69751')
-      .on('child_added', callback)
+      .ref("/messages/")
+      .orderByChild("roomId")
+      .equalTo(this.props.roomId)
+      .on("child_added", callback);
   }
 
   onSend(messages) {
     for (const message of messages) {
-      this.saveMessage(message)
+      this.saveMessage(message);
     }
   }
 
   saveMessage(message) {
     return firebase
       .database()
-      .ref('/messages/')
-      .push({ ...message, roomId: '5e53444f8531bb11fed69751' })
+      .ref("/messages/")
+      .push({ ...message, roomId: this.props.roomId })
       .catch(function(error) {
-        console.error('Error saving message to Database:', error)
-      })
-  }
-
-  renderSignOutButton() {
-    if (this.state.isAuthenticated) {
-      return <Button onClick={() => this.signOut()}>Sign out</Button>
-    }
-    return null
+        console.error("Error saving message to Database:", error);
+      });
   }
 
   renderChat() {
@@ -91,9 +80,9 @@ export default class ChatRoom extends Component {
       <GiftedChat
         user={this.state.chatUser}
         messages={this.state.messages.slice().reverse()}
-        onSend={(messages) => this.onSend(messages)}
+        onSend={messages => this.onSend(messages)}
       />
-    )
+    );
   }
 
   renderChannels() {
@@ -103,44 +92,44 @@ export default class ChatRoom extends Component {
           <ListItemAvatar>
             <Avatar>D</Avatar>
           </ListItemAvatar>
-          <ListItemText primary='Default' />
+          <ListItemText primary="Default" />
         </ListItem>
       </List>
-    )
+    );
   }
 
   renderChannelsHeader() {
     return (
-      <AppBar position='static' color='default'>
+      <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant='h6' color='inherit'>
+          <Typography variant="h6" color="inherit">
             Channels
           </Typography>
         </Toolbar>
       </AppBar>
-    )
+    );
   }
   renderChatHeader() {
     return (
-      <AppBar position='static' color='default'>
+      <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant='h6' color='inherit'>
+          <Typography variant="h6" color="inherit">
             Default channel
           </Typography>
         </Toolbar>
       </AppBar>
-    )
+    );
   }
   renderSettingsHeader() {
     return (
-      <AppBar position='static' color='default'>
+      <AppBar position="static" color="default">
         <Toolbar>
-          <Typography variant='h6' color='inherit'>
+          <Typography variant="h6" color="inherit">
             Settings
           </Typography>
         </Toolbar>
       </AppBar>
-    )
+    );
   }
 
   render() {
@@ -151,34 +140,34 @@ export default class ChatRoom extends Component {
           {this.renderChat()}
         </div>
       </div>
-    )
+    );
   }
 }
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '50vh',
-    width: '50vh',
+    display: "flex",
+    flexDirection: "row",
+    height: "50vh",
+    width: "50vh"
   },
   channelList: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column"
   },
   chat: {
-    display: 'flex',
-    flex: 3,
-    flexDirection: 'column',
-    borderWidth: '1px',
-    borderColor: '#ccc',
-    borderRightStyle: 'solid',
-    borderLeftStyle: 'solid',
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    borderWidth: "1px",
+    borderColor: "#ccc",
+    borderRightStyle: "solid",
+    borderLeftStyle: "solid"
   },
   settings: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    flexDirection: 'column',
-  },
-}
+    flexDirection: "column"
+  }
+};
