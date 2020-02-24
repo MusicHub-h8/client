@@ -1,4 +1,9 @@
+.studio {
+  display: flex;
+  flex-direction: row;
+}
 .studio-Container {
+  flex-grow: 1;
   min-height: 100vh;
   height: 100%;
   background-color: #091d27;
@@ -14,13 +19,18 @@
 }
 .trackContainer {
   display: flex;
+  flex-wrap: wrap;
 }
 
 /* custom scrollbar */
 ::-webkit-scrollbar {
   height: 0.4rem;
+  width: 0.4rem;
 }
 ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+body::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
 }
 ::-webkit-scrollbar-thumb {

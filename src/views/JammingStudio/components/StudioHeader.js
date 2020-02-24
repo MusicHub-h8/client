@@ -4,6 +4,13 @@ import FormAdd from './FormAdd'
 
 export default function StudioHeader() {
   const [showForm, setShowForm] = useState(false)
+
+  const players = [
+    'https://i.pravatar.cc',
+    'https://i.pravatar.cc',
+    'https://i.pravatar.cc',
+    'https://i.pravatar.cc',
+  ]
   const history = useHistory()
 
   const handleGoBack = () => {
@@ -24,7 +31,7 @@ export default function StudioHeader() {
             handleGoBack()
           }}
         >
-          {`< back`}
+          <i class='fas fa-chevron-left'></i>
         </button>
         <div className='studio-heading'>
           <div className='leftSide'>
@@ -34,10 +41,16 @@ export default function StudioHeader() {
                 toggleForm()
               }}
             >
-              Add Track
+              <i class='fas fa-plus'></i> Add Track
             </button>
           </div>
-          <div className='rightSide'>test</div>
+          <div className='rightSide'>
+            <div className='playerAvaContainer'>
+              {players.map((player) => (
+                <img src='https://i.pravatar.cc' alt='playerava' className='playerAva' />
+              ))}
+            </div>
+          </div>
         </div>
         {showForm && <FormAdd />}
       </div>
