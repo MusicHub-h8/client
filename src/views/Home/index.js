@@ -7,6 +7,7 @@ import SpotifyLogin from '../../components/SpotifyLogin';
 import './components/styles.css';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const dispatch = useDispatch();
 

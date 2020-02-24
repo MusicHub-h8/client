@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestRooms, setLoading } from '../../store/actions';
+import {
+  requestRooms,
+  setLoading,
+  requestCurrentUser,
+} from '../../store/actions';
 import './components/styles.css';
 import {
   Link,
@@ -27,6 +31,10 @@ const Dashboard = () => {
   const myRooms = useSelector(state => state.roomReducer.myRooms);
   const loading = useSelector(state => state.roomReducer.loading);
   const error = useSelector(state => state.roomReducer.error);
+
+  useEffect(() => {
+    dispatch(requestCurrentUser());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(setLoading(true));

@@ -24,21 +24,22 @@ if (!firebase.apps.length) {
 }
 
 export default class ChatRoom extends Component {
-  constructor() {
-    super();
+  // ++++++++ di state chatUser kalian hrs set state dgn data user yg lagi login ya
+  constructor(props) {
+    super(props);
     this.state = {
       messages: [],
       user: {},
       chatUser: {
-        avatar:
-          "https://cdn4.iconfinder.com/data/icons/e-commerce-181/512/477_profile__avatar__man_-512.png",
-        id: "abcsdefgh",
-        name: "Username"
+        avatar: this.props.currentUser.avatar,
+        id: this.props.currentUser._id,
+        name: this.props.currentUser.display_name
       }
     };
   }
-  // ++++++++ di state chatUser kalian hrs set state dgn data user yg lagi login ya
+
   componentDidMount() {
+    console.log(this.props, "ini props");
     this.loadMessages();
   }
 
@@ -53,7 +54,8 @@ export default class ChatRoom extends Component {
     firebase
       .database()
       .ref("/messages/")
-      .limitToLast(12)
+      .orderByChild("roomId")
+      .equalTo(this.props.roomId)
       .on("child_added", callback);
   }
 
@@ -67,17 +69,10 @@ export default class ChatRoom extends Component {
     return firebase
       .database()
       .ref("/messages/")
-      .push(message)
+      .push({ ...message, roomId: this.props.roomId })
       .catch(function(error) {
         console.error("Error saving message to Database:", error);
       });
-  }
-
-  renderSignOutButton() {
-    if (this.state.isAuthenticated) {
-      return <Button onClick={() => this.signOut()}>Sign out</Button>;
-    }
-    return null;
   }
 
   renderChat() {
@@ -119,7 +114,7 @@ export default class ChatRoom extends Component {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="h6" color="inherit">
-            Default channel
+            {this.props.roomDetail.music_title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -163,7 +158,7 @@ const styles = {
   },
   chat: {
     display: "flex",
-    flex: 3,
+    flex: 1,
     flexDirection: "column",
     borderWidth: "1px",
     borderColor: "#ccc",
