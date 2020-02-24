@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { requestDeleteTrack, removeTrack } from '../../../store/actions'
 import { Howl, Howler } from 'howler'
 
 import 'rc-slider/assets/index.css'
@@ -7,6 +9,7 @@ import './style.css'
 import Slider from 'rc-slider'
 
 export default function Track({ audioUrl, track }) {
+  const dispatch = useDispatch()
   const [volume, setVolume] = useState(75)
   const [isMuted, setMuted] = useState(false)
   const [panning, setPanning] = useState(50)
@@ -22,10 +25,9 @@ export default function Track({ audioUrl, track }) {
   )
 
   useEffect(() => {
-    console.log(track)
     audio.on('load', () => {
-      console.log(audio)
-      audio.play()
+      // console.log(audio)
+      // audio.play()
       // console.log(audio.duration())
       // console.log(audio.seek())
     })
@@ -74,11 +76,20 @@ export default function Track({ audioUrl, track }) {
     backgroundColor: '#72a8be',
   }
 
+  const handleDelete = () => {
+    dispatch(removeTrack(track._id))
+  }
+
   return (
     <div className='track'>
       <div className='track-label text-white'>
-        <span>{track.instrument}</span>
-        <i class='fas fa-trash removeIcon'></i>
+        <span contentEditable={true}>{track.instrument}</span>
+        <i
+          class='fas fa-trash removeIcon'
+          onClick={() => {
+            handleDelete()
+          }}
+        ></i>
       </div>
 
       <div className='volume-container text-white'>

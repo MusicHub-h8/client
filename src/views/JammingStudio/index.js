@@ -28,22 +28,13 @@ export default function JammingStudio() {
     <div className='studio'>
       <ChatRoom
         avatar={'https://cdn.iconscout.com/icon/premium/png-256-thumb/cat-455-896812.png'}
-        roomId={roomDetail._id}
+        roomId={roomId}
       />
       <div className='studio-Container'>
         <div className='upper'>
           <StudioHeader />
           <div className='studio-Main'>
             <div className='trackContainer'>
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
               {tracks.map((track, i) => (
                 <Track key={i} instrument track={track} />
               ))}

@@ -5,7 +5,8 @@ import {
   ADD_TRACK,
   SET_LOADING,
   SET_ERROR,
-} from '../actions/';
+  DELETE_TRACK,
+} from '../actions/'
 
 const initialState = {
   myRooms: {
@@ -17,7 +18,7 @@ const initialState = {
   activeRoom: {
     tracks: [],
   },
-};
+}
 
 export default function roomReducers(state = initialState, action) {
   switch (action.type) {
@@ -25,7 +26,7 @@ export default function roomReducers(state = initialState, action) {
       return {
         ...state,
         activeRoom: action.payload,
-      };
+      }
     case GET_MYROOMS:
       return {
         ...state,
@@ -33,7 +34,7 @@ export default function roomReducers(state = initialState, action) {
           owned: action.payload.owned,
           involved: action.payload.involved,
         },
-      };
+      }
     case ADD_TRACK:
       return {
         ...state,
@@ -41,7 +42,18 @@ export default function roomReducers(state = initialState, action) {
           detail: state.activeRoom.detail,
           tracks: [...state.activeRoom.tracks, action.payload],
         },
-      };
+      }
+    case DELETE_TRACK:
+      const newTracks = state.activeRoom.tracks.filter((track) => {
+        return track._id !== action.payload
+      })
+      return {
+        ...state,
+        activeRoom: {
+          detail: state.activeRoom.detail,
+          tracks: newTracks,
+        },
+      }
     case ADD_ROOM:
       return {
         ...state,
@@ -49,18 +61,18 @@ export default function roomReducers(state = initialState, action) {
           ...state.myRooms,
           owned: [action.payload, ...state.myRooms.owned],
         },
-      };
+      }
     case SET_ERROR:
       return {
         ...state,
         error: action.payload,
-      };
+      }
     case SET_LOADING:
       return {
         ...state,
         loading: action.payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
