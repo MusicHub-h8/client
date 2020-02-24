@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import { GiftedChat } from "react-web-gifted-chat";
 import firebase from "firebase";
-import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -85,47 +79,12 @@ export default class ChatRoom extends Component {
     );
   }
 
-  renderChannels() {
-    return (
-      <List>
-        <ListItem button>
-          <ListItemAvatar>
-            <Avatar>D</Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Default" />
-        </ListItem>
-      </List>
-    );
-  }
-
-  renderChannelsHeader() {
-    return (
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Channels
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    );
-  }
   renderChatHeader() {
     return (
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography variant="h6" color="inherit">
             {this.props.roomDetail.music_title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    );
-  }
-  renderSettingsHeader() {
-    return (
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Settings
           </Typography>
         </Toolbar>
       </AppBar>
@@ -148,26 +107,17 @@ const styles = {
   container: {
     display: "flex",
     flexDirection: "row",
-    height: "50vh",
-    width: "50vh"
-  },
-  channelList: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column"
+    height: "100vh",
+    width: "50vh",
+    backgroundColor: "#091d27"
   },
   chat: {
     display: "flex",
-    flex: 1,
+    flex: 3,
     flexDirection: "column",
     borderWidth: "1px",
-    borderColor: "#ccc",
     borderRightStyle: "solid",
-    borderLeftStyle: "solid"
-  },
-  settings: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column"
+    borderLeftStyle: "solid",
+    backgroundColor: "#091d27"
   }
 };
