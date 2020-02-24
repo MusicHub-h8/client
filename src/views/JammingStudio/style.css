@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 18rem;
 }
 .studio-Main {
   overflow-x: auto;
@@ -17,6 +18,14 @@
   padding: 2rem;
   justify-content: center;
 }
+
+.container-chatroom {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
 .trackContainer {
   display: flex;
   flex-wrap: wrap;
@@ -40,4 +49,8 @@ body::-webkit-scrollbar-track {
 ::-webkit-scrollbar-thumb:hover {
   background: #f3005d;
   transition: 2s ease-in-out;
+}
+
+.MuiToolbar-regular {
+  min-height: 5rem !important;
 }

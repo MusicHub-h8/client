@@ -43,6 +43,30 @@ const Explore = () => {
       genre: 'Pop',
       instruments: ['Vocal'],
     },
+    {
+      _id: 6,
+      display_name: 'Iban',
+      avatar:
+        'https://cdn2.iconfinder.com/data/icons/many-people-flat-icons/128/speaker-512.png',
+      genre: 'Pop',
+      instruments: ['Vocal'],
+    },
+    {
+      _id: 7,
+      display_name: 'Iban',
+      avatar:
+        'https://cdn2.iconfinder.com/data/icons/many-people-flat-icons/128/speaker-512.png',
+      genre: 'Pop',
+      instruments: ['Vocal'],
+    },
+    {
+      _id: 8,
+      display_name: 'Iban',
+      avatar:
+        'https://cdn2.iconfinder.com/data/icons/many-people-flat-icons/128/speaker-512.png',
+      genre: 'Pop',
+      instruments: ['Vocal'],
+    },
   ];
   return arr.map(player => <UserCard key={player._id} player={player} />);
 };
