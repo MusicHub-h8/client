@@ -10,7 +10,7 @@ export const SET_RECOMMENDED_USERS = "SET_RECOMMENDED_USERS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const DELETE_INVITE = "DELETE_INVITES";
 export const SET_ALL_USERS = "SET_ALL_USERS";
-
+export const DELETE_TRACK = "DELETE_TRACK";
 export const ADD_TRACK = "ADD_TRACK";
 
 // request => hit server
@@ -43,13 +43,36 @@ export const requestAddTrack = trackInfo => {
       });
   };
 };
+
 export const addTrack = trackDetail => {
   return {
     type: ADD_TRACK,
     payload: trackDetail
   };
 };
-
+export const removeTrack = deletedTrackId => {
+  return {
+    type: DELETE_TRACK,
+    payload: deletedTrackId
+  };
+};
+export const requestDeleteTrack = trackId => {
+  const access_token = localStorage.getItem("access_token");
+  return dispatch => {
+    axios({
+      method: "DELETE",
+      url: `/tracks/${trackId}`,
+      headers: {
+        access_token
+      }
+    })
+      .then(() => {
+        console.log("hit disiniii");
+        dispatch(removeTrack(trackId));
+      })
+      .catch(console.log);
+  };
+};
 export const setActiveRoom = roomDetail => {
   return {
     type: GET_ROOMDETAILS,
@@ -57,6 +80,12 @@ export const setActiveRoom = roomDetail => {
   };
 };
 
+export const setAllUsers = users => {
+  return {
+    type: SET_ALL_USERS,
+    payload: users
+  };
+};
 export const requestRoomDetail = roomId => {
   const access_token = localStorage.getItem("access_token");
   return dispatch => {
@@ -147,13 +176,6 @@ export const setRecommendedUsers = recommendedUsers => {
   return {
     type: SET_RECOMMENDED_USERS,
     payload: recommendedUsers
-  };
-};
-
-export const setAllUsers = users => {
-  return {
-    type: SET_ALL_USERS,
-    payload: users
   };
 };
 
