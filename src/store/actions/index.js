@@ -66,6 +66,7 @@ export const requestDeleteTrack = (trackId) => {
       },
     })
       .then(() => {
+        console.log('hit disiniii')
         dispatch(removeTrack(trackId))
       })
       .catch(console.log)

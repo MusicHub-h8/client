@@ -77,13 +77,13 @@ export default function Track({ audioUrl, track }) {
   }
 
   const handleDelete = () => {
-    dispatch(removeTrack(track._id))
+    dispatch(requestDeleteTrack(track._id))
   }
 
   return (
     <div className='track'>
       <div className='track-label text-white'>
-        <span contentEditable={true}>{track.instrument}</span>
+        <span>{track.instrument}</span>
         <i
           class='fas fa-trash removeIcon'
           onClick={() => {

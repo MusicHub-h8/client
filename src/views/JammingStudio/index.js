@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
 import { requestRoomDetail, requestCurrentUser } from '../../store/actions/'
 
-import ChatRoom from '../../components/ChatRoom'
+import './style.css'
 
+import ChatRoom from '../../components/ChatRoom'
 import StudioHeader from './components/StudioHeader'
 import Track from './components/Track'
-
-import { Howl, Howler } from 'howler'
-
-import './style.css'
 import PlaybackControl from './components/PlaybackControl'
 
 export default function JammingStudio() {
@@ -19,7 +18,7 @@ export default function JammingStudio() {
 
   useEffect(() => {
     dispatch(requestCurrentUser())
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     dispatch(requestRoomDetail(roomId))
@@ -34,7 +33,7 @@ export default function JammingStudio() {
       <ChatRoom currentUser={currentUser} roomId={roomId} roomDetail={roomDetail} />
       <div className='studio-Container'>
         <div className='upper'>
-          <StudioHeader />
+          <StudioHeader roomDetail={roomDetail} />
           <div className='studio-Main'>
             <div className='trackContainer'>
               {tracks.map((track, i) => (
