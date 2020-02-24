@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { Howl, Howler } from 'howler'
+
 import 'rc-slider/assets/index.css'
 import './style.css'
 
@@ -11,22 +13,25 @@ export default function Track({ audioUrl, track }) {
   const [seek, setSeek] = useState(0)
 
   const [audio, setAudio] = useState(
-    // new Howl({
-    //   src: [audioUrl],
-    //   onplay: () => {
-    //     console.log(audioUrl, 'is playing')
-    //   },
-    // })
-    track
+    new Howl({
+      src: [track.file_path],
+      onplay: () => {
+        console.log(track.file_path, 'is playing')
+      },
+    })
   )
 
   useEffect(() => {
+    console.log(track)
     audio.on('load', () => {
       console.log(audio)
-      // audio.play()
+      audio.play()
       // console.log(audio.duration())
       // console.log(audio.seek())
     })
+    return () => {
+      audio.stop()
+    }
   }, [])
 
   function toggleMute() {
@@ -51,11 +56,8 @@ export default function Track({ audioUrl, track }) {
     audio.stereo(panValue)
   }
 
-  function log(value) {
-    console.log(value) //eslint-disable-line
-  }
   const sliderStyle = {
-    height: 350,
+    height: 300,
   }
   const trackStyle = [
     {
@@ -75,8 +77,8 @@ export default function Track({ audioUrl, track }) {
   return (
     <div className='track'>
       <div className='track-label text-white'>
-        <span>Bass</span>
-        <span>{`(${volume}%)`}</span>
+        <span>{track.instrument}</span>
+        <i class='fas fa-trash removeIcon'></i>
       </div>
 
       <div className='volume-container text-white'>
@@ -93,6 +95,7 @@ export default function Track({ audioUrl, track }) {
       </div>
 
       <div className='panning-container text-white'>
+        <span>{`${volume}%`}</span>
         <div className='track-btn-group'>
           <div
             className={isMuted ? 'track-btn track-btn-active' : 'track-btn'}
