@@ -24,6 +24,10 @@ if (!firebase.apps.length) {
 }
 
 export default class ChatRoom extends Component {
+  // ++++++++ di state chatUser kalian hrs set state dgn data user yg lagi login ya
+  // avatar: this.props.avatar,
+  //     id: this.props._id,
+  //     name: this.props.display_name,
   constructor() {
     super();
     this.state = {
@@ -31,13 +35,13 @@ export default class ChatRoom extends Component {
       user: {},
       chatUser: {
         avatar:
-          "https://cdn4.iconfinder.com/data/icons/e-commerce-181/512/477_profile__avatar__man_-512.png",
-        id: "abcsdefgh",
-        name: "Username"
+          "https://cdn.iconscout.com/icon/premium/png-256-thumb/cat-455-896812.png",
+        id: "cbba1",
+        name: "cat"
       }
     };
   }
-  // ++++++++ di state chatUser kalian hrs set state dgn data user yg lagi login ya
+
   componentDidMount() {
     this.loadMessages();
   }
@@ -53,7 +57,8 @@ export default class ChatRoom extends Component {
     firebase
       .database()
       .ref("/messages/")
-      .limitToLast(12)
+      .orderByChild("roomId")
+      .equalTo(this.props.match.params.id)
       .on("child_added", callback);
   }
 
@@ -67,7 +72,7 @@ export default class ChatRoom extends Component {
     return firebase
       .database()
       .ref("/messages/")
-      .push(message)
+      .push({ ...message, roomId: this.props.match.params.id })
       .catch(function(error) {
         console.error("Error saving message to Database:", error);
       });
