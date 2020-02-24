@@ -15,10 +15,6 @@ const UserCard = props => {
     setShowModal(!showModal);
   };
 
-  const userName = () => {
-    const name = player.display_name.split(' ');
-    return name[0];
-  };
   return (
     <>
       <ReactCSSTransitionGroup
@@ -34,15 +30,10 @@ const UserCard = props => {
           <img src={player.avatar} alt='Player Avatar' />
         </div>
         <div className='card-right'>
-          <div className='card-right-top'>
-            <p className='card-name'>{userName()}</p>
-            <p>{player.genre}</p>
-            <button onClick={() => handleShowModal()} className='btn-invite'>
-              Invite
-            </button>
-          </div>
+          <p className='card-name'>{player.display_name}</p>
+          <p>{player.genre}</p>
           <div className='card-right-bottom'>
-            {player.instruments.map((instrument, index) => {
+            {['Guitar', 'Bass', 'Piano'].map((instrument, index) => {
               return (
                 <p
                   key={'instrument' + index}
@@ -53,6 +44,13 @@ const UserCard = props => {
               );
             })}
           </div>
+        </div>
+        <div
+          style={{ alignSelf: 'flex-end', height: '100%', marginLeft: 'auto' }}
+        >
+          <button onClick={() => handleShowModal()} className='btn-invite'>
+            Invite
+          </button>
         </div>
       </div>
     </>

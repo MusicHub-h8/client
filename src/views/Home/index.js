@@ -1,14 +1,17 @@
 import React from 'react';
 import axios from '../../api/axiosInstance';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from '../../store/actions';
 import SpotifyLogin from '../../components/SpotifyLogin';
 import './components/styles.css';
 
 const Home = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSuccess = response => {
-    console.log(response);
+    console.log(response, 'response from Spotify. Home.');
     axios({
       method: 'POST',
       url: '/users/login',
@@ -17,16 +20,14 @@ const Home = () => {
       },
     })
       .then(({ data }) => {
+        dispatch(setCurrentUser(data.user));
+        localStorage.setItem('currentUser', JSON.stringify(data.user));
         localStorage.setItem('access_token', data.access_token);
         history.push('/dashboard');
       })
       .catch(console.log);
   };
   const onFailure = response => console.error(response);
-
-  const goToDashboard = () => {
-    history.push('/dashboard');
-  };
 
   return (
     <>
@@ -42,7 +43,6 @@ const Home = () => {
           onFailure={onFailure}
           className='home-btn-spotify'
         />
-        <button onClick={goToDashboard}>dashboard</button>
       </main>
     </>
   );

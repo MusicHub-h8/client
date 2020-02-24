@@ -13,6 +13,7 @@ import Recommended from './components/Recommended';
 import Explore from './components/Explore';
 import MyStudio from './components/MyStudio';
 import Notifications from './components/Notifications';
+import Profile from './components/Profile';
 import AddStudioForm from './components/AddStudioForm';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -20,6 +21,7 @@ const Dashboard = () => {
   const history = useHistory();
   const [showForm, setShowForm] = useState(false);
   const { url, path } = useRouteMatch();
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const dispatch = useDispatch();
   const myRooms = useSelector(state => state.roomReducer.myRooms);
@@ -151,6 +153,11 @@ const Dashboard = () => {
                   <i className='fas fa-bell'></i>
                 </Link>
               </div>
+              <img
+                src={currentUser.avatar}
+                alt='User Avatar'
+                style={{ height: '40px', marginRight: '2rem' }}
+              />
               <button className='btn-logout' onClick={() => userLogout()}>
                 Logout
               </button>
@@ -166,7 +173,8 @@ const Dashboard = () => {
           <div className='dash-content'>
             <Switch>
               <Route exact path={path}>
-                <h3>Welcome</h3>
+                <h3 style={{ width: '100%', textAlign: 'center' }}>Welcome</h3>
+                <Profile />
               </Route>
               <Route path={`${path}/recommended`}>
                 <Recommended />
