@@ -5,6 +5,8 @@ import { requestRoomDetail, requestCurrentUser } from "../../store/actions/";
 
 import ChatRoom from "../../components/ChatRoom";
 
+import io from "socket.io-client";
+
 import StudioHeader from "./components/StudioHeader";
 import Track from "./components/Track";
 
@@ -13,12 +15,15 @@ import { Howl, Howler } from "howler";
 import "./style.css";
 import PlaybackControl from "./components/PlaybackControl";
 
+const socket = io("http://localhost:4000");
+
 export default function JammingStudio() {
   const { roomId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(requestCurrentUser());
+    // socket.on("new_person_enters", room)
   }, [dispatch]);
 
   useEffect(() => {
