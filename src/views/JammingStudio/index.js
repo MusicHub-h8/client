@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { requestRoomDetail, requestCurrentUser } from "../../store/actions/";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import ChatRoom from "../../components/ChatRoom";
+import { requestRoomDetail, requestCurrentUser } from "../../store/actions/";
 
 import io from "socket.io-client";
 
 import StudioHeader from "./components/StudioHeader";
 import Track from "./components/Track";
-
-import { Howl, Howler } from "howler";
-
 import "./style.css";
+
+import ChatRoom from "../../components/ChatRoom";
+import StudioHeader from "./components/StudioHeader";
+import Track from "./components/Track";
 import PlaybackControl from "./components/PlaybackControl";
 
 const socket = io("http://localhost:4000");
@@ -43,18 +44,9 @@ export default function JammingStudio() {
       />
       <div className="studio-Container">
         <div className="upper">
-          <StudioHeader />
+          <StudioHeader roomDetail={roomDetail} />
           <div className="studio-Main">
             <div className="trackContainer">
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
-              {tracks.map((track, i) => (
-                <Track key={i} instrument track={track} />
-              ))}
               {tracks.map((track, i) => (
                 <Track key={i} instrument track={track} />
               ))}
