@@ -1,7 +1,16 @@
-import React from 'react';
-import UserCard from '../../../components/UserCard';
-
+import React, { useEffect } from "react";
+import UserCard from "../../../components/UserCard";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAllUsers } from "../../../store/actions";
 const Explore = () => {
+<<<<<<< HEAD
+  const allUsers = useSelector(state => state.userReducer.allUsers);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, []);
+  return allUsers.map(player => <UserCard key={player._id} player={player} />);
+=======
   const arr = [
     {
       _id: 1,
@@ -69,6 +78,7 @@ const Explore = () => {
     },
   ];
   return arr.map(player => <UserCard key={player._id} player={player} />);
+>>>>>>> development
 };
 
 export default Explore;
