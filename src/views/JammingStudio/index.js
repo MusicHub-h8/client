@@ -15,11 +15,6 @@ export default function JammingStudio() {
   const { roomId } = useParams()
   const dispatch = useDispatch()
 
-  // const tracks = [
-  //   'https://storage.googleapis.com/musichub/1901_gtr1.mp3',
-  //   'https://storage.googleapis.com/musichub/1901_drumsleft.mp3',
-  //   // 'https://storage.googleapis.com/musichub/1901_leadvox.mp3',
-  // ]
   useEffect(() => {
     dispatch(requestRoomDetail(roomId))
   }, [dispatch, roomId])
@@ -32,17 +27,28 @@ export default function JammingStudio() {
       <div className='upper'>
         <StudioHeader />
         <div className='studio-Main'>
-          {tracks.map((track, i) => (
-            <Track
-              key={i}
-              track={
-                new Howl({
-                  src: [track],
-                })
-              }
-            />
-          ))}
-          <button onClick={() => {}}>Play All</button>
+          <div className='trackContainer'>
+            {tracks.map((track, i) => (
+              <Track
+                key={i}
+                track={
+                  new Howl({
+                    src: [track],
+                  })
+                }
+              />
+            ))}
+            {tracks.map((track, i) => (
+              <Track
+                key={i}
+                track={
+                  new Howl({
+                    src: [track],
+                  })
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
       <PlaybackControl />

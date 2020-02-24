@@ -19,44 +19,81 @@
 .form-upload {
   flex: 6;
 }
-.studio-Container {
-  height: 100vh;
-  background-color: #091d27;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.studio-Main {
-  padding: 2rem 2rem 0 2rem;
-}
 
 /* TRACK SECTIONS */
-.track-VolumeContainer {
+.track {
+  width: 10rem;
+  border-radius: 8px;
+  background-color: #0f2833;
+  padding: 1rem;
+  margin-right: 1rem;
+  justify-content: center;
+  transition: 500ms ease-in-out;
 }
-.track-OuterVerticalWrapper {
-  display: table;
-  margin-right: 0;
+.track:hover {
+  transition: 200ms ease-in-out;
+  border-radius: 8px;
+  background-color: #0f2833;
+  padding: 1rem;
+  margin-right: 1rem;
+  justify-content: center;
+  transform: translateY(-10px);
+  box-shadow: 0px 0px 46px -23px rgba(0, 0, 0, 1);
 }
-.track-InnerVerticalWrapper {
-  padding: 50% 0;
-  height: 0;
-}
-.track-verticalSlider {
-  display: block;
-  transform-origin: top left;
-  /* Note: for a CLOCKWISE rotation, use the commented-out
-     transform instead of this one. */
-  transform: rotate(-90deg) translate(-100%);
-  /* transform: rotate(90deg) translate(0, -100%); */
-  margin-top: -50%;
 
-  /* Not vital, but possibly a good idea if the element you're rotating contains
-     text and you want a single long vertical line of text and the pre-rotation
-     width of your element is small enough that the text wraps: */
-  white-space: nowrap;
+.track-label {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #72a8be;
+}
+.track-btn-group {
+  color: white;
+  margin-top: 1.5rem;
+  display: flex;
+}
+.track-btn {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: #72a8be;
+}
+.track-btn-active {
+  box-shadow: inset 0px 0px 46px -23px rgba(0, 0, 0, 0.75);
+}
+.track-btn:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.track-btn:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.volume-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .playback-container {
   align-self: center;
   margin-bottom: 2rem;
+  padding: 1rem 6rem;
+  background-color: #72a8be;
+}
+
+.panning-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.panning-slider {
+  width: 80px;
 }

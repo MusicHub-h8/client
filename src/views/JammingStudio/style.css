@@ -1,0 +1,33 @@
+.studio-Container {
+  min-height: 100vh;
+  height: 100%;
+  background-color: #091d27;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.studio-Main {
+  overflow-x: auto;
+  display: flex;
+  padding: 2rem;
+  justify-content: center;
+}
+.trackContainer {
+  display: flex;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  height: 0.4rem;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: #0f2833;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f3005d;
+  transition: 2s ease-in-out;
+}

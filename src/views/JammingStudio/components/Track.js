@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Howl, Howler } from 'howler'
+import 'rc-slider/assets/index.css'
 import './style.css'
+
+import Slider from 'rc-slider'
 
 export default function Track({ audioUrl, track }) {
   const [volume, setVolume] = useState(75)
@@ -27,13 +29,6 @@ export default function Track({ audioUrl, track }) {
     })
   }, [])
 
-  // seekbar
-  useEffect(() => {
-    // setInterval(() => {
-    //   console.log((audio.seek() / audio.duration()) * 100)
-    // }, 500)
-  }, [])
-
   function toggleMute() {
     setMuted(!isMuted)
     console.log(audio.volume)
@@ -56,44 +51,74 @@ export default function Track({ audioUrl, track }) {
     audio.stereo(panValue)
   }
 
+  function log(value) {
+    console.log(value) //eslint-disable-line
+  }
+  const sliderStyle = {
+    height: 350,
+  }
+  const trackStyle = [
+    {
+      backgroundColor: '#f3005d',
+    },
+  ]
+  const handleStyle = [
+    {
+      // width: '30px',
+      // height: '30px',
+    },
+  ]
+  const railStyle = {
+    backgroundColor: '#72a8be',
+  }
+
   return (
     <div className='track'>
-      <div className='text-white'>
-        <div className='track-OuterVerticalWrapper'>
-          <div className='track-InnerVerticalWrapper'>
-            <input
-              className='track-verticalSlider'
-              type='range'
-              value={volume}
-              onChange={(event) => {
-                handleVolumeChange(event.target.value)
-              }}
-            />
+      <div className='track-label text-white'>
+        <span>Bass</span>
+        <span>{`(${volume}%)`}</span>
+      </div>
+
+      <div className='volume-container text-white'>
+        <div style={sliderStyle}>
+          <Slider
+            vertical
+            onChange={handleVolumeChange}
+            defaultValue={75}
+            trackStyle={trackStyle}
+            handleStyle={handleStyle}
+            railStyle={railStyle}
+          />
+        </div>
+      </div>
+
+      <div className='panning-container text-white'>
+        <div className='track-btn-group'>
+          <div
+            className={isMuted ? 'track-btn track-btn-active' : 'track-btn'}
+            onClick={(event) => {
+              toggleMute()
+            }}
+          >
+            <span>M</span>
+          </div>
+          <div
+            className='track-btn'
+            onClick={(event) => {
+              toggleMute()
+            }}
+          >
+            <span>S</span>
           </div>
         </div>
-        <span>{volume}</span>
-      </div>
-
-      <div className=''>
-        <button
-          onClick={(event) => {
-            toggleMute()
-          }}
-        >
-          mute
-        </button>
-      </div>
-
-      <div className='text-white'>
-        <input
-          className=''
-          type='range'
-          value={panning}
-          onChange={(event) => {
-            handlePanBar(event.target.value)
-          }}
+        <Slider
+          included={false}
+          onChange={handlePanBar}
+          defaultValue={50}
+          trackStyle={trackStyle}
+          handleStyle={handleStyle}
+          railStyle={railStyle}
         />
-        <span>{panning}</span>
       </div>
     </div>
   )
