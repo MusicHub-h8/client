@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { requestRoomDetail } from "../../store/actions/";
+import { requestRoomDetail, requestCurrentUser } from "../../store/actions/";
 
 import ChatRoom from "../../components/ChatRoom";
 
@@ -18,6 +18,10 @@ export default function JammingStudio() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(requestCurrentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(requestRoomDetail(roomId));
   }, [dispatch, roomId]);
 
@@ -27,7 +31,11 @@ export default function JammingStudio() {
 
   return (
     <div className="studio">
-      <ChatRoom currentUser={currentUser} roomId={roomId} />
+      <ChatRoom
+        currentUser={currentUser}
+        roomId={roomId}
+        roomDetail={roomDetail}
+      />
       <div className="studio-Container">
         <div className="upper">
           <StudioHeader />

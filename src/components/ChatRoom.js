@@ -31,9 +31,9 @@ export default class ChatRoom extends Component {
       messages: [],
       user: {},
       chatUser: {
-        avatar: this.props.currentUser.user.avatar,
-        id: this.props.currentUser.user._id,
-        name: this.props.currentUser.user.display_name
+        avatar: this.props.currentUser.avatar,
+        id: this.props.currentUser._id,
+        name: this.props.currentUser.display_name
       }
     };
   }
@@ -114,7 +114,7 @@ export default class ChatRoom extends Component {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="h6" color="inherit">
-            Default channel
+            {this.props.roomDetail.music_title}
           </Typography>
         </Toolbar>
       </AppBar>
