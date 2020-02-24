@@ -10,6 +10,9 @@ const AddStudioForm = props => {
   const onSubmitAddStudio = event => {
     event.preventDefault();
     const access_token = localStorage.getItem('access_token');
+    setMusicTitle('');
+    setDescription('');
+    props.handleShowForm();
     dispatch(
       requestAddRoom({
         music_title: musicTitle,
@@ -29,7 +32,13 @@ const AddStudioForm = props => {
 
   return (
     <div className='add-studio-form'>
-      <span onClick={props.handleShowForm}>X</span>
+      <span
+        className='cursor-pointer'
+        style={{ alignSelf: 'flex-end' }}
+        onClick={props.handleShowForm}
+      >
+        Cancel
+      </span>
       <h1>Add Studio</h1>
       <form action='POST' onSubmit={onSubmitAddStudio}>
         <label htmlFor='musicTitle'>Music Title</label>
