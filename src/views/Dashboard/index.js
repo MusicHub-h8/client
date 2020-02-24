@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { requestRooms, setLoading } from '../../store/actions';
-import './components/styles.css';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  requestRooms,
+  setLoading,
+  requestCurrentUser
+} from "../../store/actions";
+import "./components/styles.css";
 import {
   Link,
   Switch,
   Route,
   useRouteMatch,
-  useHistory,
-} from 'react-router-dom';
-import Recommended from './components/Recommended';
-import Explore from './components/Explore';
-import MyStudio from './components/MyStudio';
-import Notifications from './components/Notifications';
-import AddStudioForm from './components/AddStudioForm';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+  useHistory
+} from "react-router-dom";
+import Recommended from "./components/Recommended";
+import Explore from "./components/Explore";
+import MyStudio from "./components/MyStudio";
+import Notifications from "./components/Notifications";
+import AddStudioForm from "./components/AddStudioForm";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 const Dashboard = () => {
   const history = useHistory();
@@ -25,6 +29,10 @@ const Dashboard = () => {
   const myRooms = useSelector(state => state.roomReducer.myRooms);
   const loading = useSelector(state => state.roomReducer.loading);
   const error = useSelector(state => state.roomReducer.error);
+
+  useEffect(() => {
+    dispatch(requestCurrentUser());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -43,30 +51,30 @@ const Dashboard = () => {
 
   const linkActive = path => {
     if (
-      window.location.pathname.split('/')[
-        window.location.pathname.split('/').length - 1
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
       ] === path
     ) {
-      return 'nav-link text-reddish';
+      return "nav-link text-reddish";
     }
-    return 'nav-link';
+    return "nav-link";
   };
 
   const linkActiveDiv = path => {
     if (
-      window.location.pathname.split('/')[
-        window.location.pathname.split('/').length - 1
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
       ] === path
     ) {
       return (
         <div
           style={{
-            width: '20px',
-            height: '20px',
-            position: 'absolute',
+            width: "20px",
+            height: "20px",
+            position: "absolute",
             background:
-              'linear-gradient(90deg, rgba(243,0,93,1) 0%, rgba(243,0,93,0.5) 35%, rgba(243,0,93,0) 100%)',
-            left: 0,
+              "linear-gradient(90deg, rgba(243,0,93,1) 0%, rgba(243,0,93,0.5) 35%, rgba(243,0,93,0) 100%)",
+            left: 0
           }}
         ></div>
       );
@@ -76,94 +84,94 @@ const Dashboard = () => {
 
   const userLogout = () => {
     localStorage.clear();
-    history.push('/');
+    history.push("/");
   };
   return (
     <>
-      <div className='dash-container'>
-        <div className='dash-side-bar'>
-          <h1 className='text-lobster text-white dash-logo'>MusicHub</h1>
-          <div className='dash-nav'>
-            <Link className={linkActive('dashboard')} to={`${url}`}>
+      <div className="dash-container">
+        <div className="dash-side-bar">
+          <h1 className="text-lobster text-white dash-logo">MusicHub</h1>
+          <div className="dash-nav">
+            <Link className={linkActive("dashboard")} to={`${url}`}>
               <ReactCSSTransitionGroup
-                transitionName='example'
+                transitionName="example"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}
               >
-                {linkActiveDiv('dashboard')}
+                {linkActiveDiv("dashboard")}
               </ReactCSSTransitionGroup>
               Home
             </Link>
             <Link
-              className={linkActive('recommended')}
+              className={linkActive("recommended")}
               to={`${url}/recommended`}
             >
               <ReactCSSTransitionGroup
-                transitionName='example'
+                transitionName="example"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}
               >
-                {linkActiveDiv('recommended')}
+                {linkActiveDiv("recommended")}
               </ReactCSSTransitionGroup>
               Recommended
             </Link>
-            <Link className={linkActive('explore')} to={`${url}/explore`}>
+            <Link className={linkActive("explore")} to={`${url}/explore`}>
               <ReactCSSTransitionGroup
-                transitionName='example'
+                transitionName="example"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}
               >
-                {linkActiveDiv('explore')}
+                {linkActiveDiv("explore")}
               </ReactCSSTransitionGroup>
               Explore
             </Link>
-            <Link className={linkActive('my-studios')} to={`${url}/my-studios`}>
+            <Link className={linkActive("my-studios")} to={`${url}/my-studios`}>
               <ReactCSSTransitionGroup
-                transitionName='example'
+                transitionName="example"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}
               >
-                {linkActiveDiv('my-studios')}
+                {linkActiveDiv("my-studios")}
               </ReactCSSTransitionGroup>
               My Studios
             </Link>
           </div>
         </div>
-        <main className='dash-main'>
-          <div className='container-btn'>
-            <button className='dash-add-btn' onClick={handleShowForm}>
+        <main className="dash-main">
+          <div className="container-btn">
+            <button className="dash-add-btn" onClick={handleShowForm}>
               Add Studio
             </button>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <div
-                className='cursor-pointer'
+                className="cursor-pointer"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: '30px',
-                  width: '25px',
-                  position: 'relative',
-                  marginRight: '2rem',
+                  display: "flex",
+                  alignItems: "center",
+                  height: "30px",
+                  width: "25px",
+                  position: "relative",
+                  marginRight: "2rem"
                 }}
               >
                 <Link to={`${url}/notifications`}>
-                  <i className='fas fa-circle'></i>
-                  <i className='fas fa-bell'></i>
+                  <i className="fas fa-circle"></i>
+                  <i className="fas fa-bell"></i>
                 </Link>
               </div>
-              <button className='btn-logout' onClick={() => userLogout()}>
+              <button className="btn-logout" onClick={() => userLogout()}>
                 Logout
               </button>
             </div>
           </div>
           <ReactCSSTransitionGroup
-            transitionName='example'
+            transitionName="example"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={300}
           >
             {addStudioForm()}
           </ReactCSSTransitionGroup>
-          <div className='dash-content'>
+          <div className="dash-content">
             <Switch>
               <Route exact path={path}>
                 <h3>Welcome</h3>

@@ -20,7 +20,8 @@ const Home = () => {
       }
     })
       .then(({ data }) => {
-        dispatch(setCurrentUser(data));
+        console.log(data);
+        dispatch(setCurrentUser(data.user));
         localStorage.setItem("access_token", data.access_token);
         history.push("/dashboard");
       })
