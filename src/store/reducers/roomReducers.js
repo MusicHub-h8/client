@@ -17,6 +17,7 @@ const initialState = {
   error: null,
   activeRoom: {
     tracks: [],
+    detail: {},
   },
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { requestRoomDetail } from '../../store/actions/'
+import { requestRoomDetail, requestCurrentUser } from '../../store/actions/'
 
 import ChatRoom from '../../components/ChatRoom'
 
@@ -18,18 +18,20 @@ export default function JammingStudio() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(requestCurrentUser())
+  }, [dispatch])
+
+  useEffect(() => {
     dispatch(requestRoomDetail(roomId))
   }, [dispatch, roomId])
 
   const roomDetail = useSelector((state) => state.roomReducer.activeRoom.detail)
   const tracks = useSelector((state) => state.roomReducer.activeRoom.tracks)
+  const currentUser = useSelector((state) => state.userReducer.currentUser)
 
   return (
     <div className='studio'>
-      <ChatRoom
-        avatar={'https://cdn.iconscout.com/icon/premium/png-256-thumb/cat-455-896812.png'}
-        roomId={roomId}
-      />
+      <ChatRoom currentUser={currentUser} roomId={roomId} roomDetail={roomDetail} />
       <div className='studio-Container'>
         <div className='upper'>
           <StudioHeader />
