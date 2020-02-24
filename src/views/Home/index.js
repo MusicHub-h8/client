@@ -9,7 +9,6 @@ import './components/styles.css';
 const Home = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const onSuccess = response => {
     console.log(response, 'response from Spotify. Home.');
