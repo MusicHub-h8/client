@@ -40,17 +40,14 @@ export default function Track({ audioUrl, track }) {
   }, [isStopped])
 
   useEffect(() => {
-    console.log(track)
     audio.load()
     audio.on('load', () => {
-      console.log('loaded', track.instrument)
       dispatch(pushTrack(track._id))
     })
     audio.on('loaderror', (id, err) => {
       console.log(err)
     })
     return () => {
-      console.log('cleanup track')
       // audio.stop()
       dispatch(triggerStop())
     }
