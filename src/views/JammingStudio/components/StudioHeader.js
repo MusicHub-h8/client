@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import FormAdd from './FormAdd'
 
-export default function StudioHeader({ roomDetail }) {
+export default function StudioHeader(props) {
   const [showForm, setShowForm] = useState(false)
+
   const [players, setPlayers] = useState([{ avatar: null, display_name: null }])
   const history = useHistory()
 
@@ -16,8 +17,8 @@ export default function StudioHeader({ roomDetail }) {
   }
 
   useEffect(() => {
-    setPlayers(roomDetail.userIds)
-  }, [roomDetail])
+    setPlayers(props.roomDetail.userIds)
+  }, [props.roomDetail])
 
   useEffect(() => {
     console.log(players)
