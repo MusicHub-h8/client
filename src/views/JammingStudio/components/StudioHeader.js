@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import FormAdd from './FormAdd'
 
 export default function StudioHeader(props) {
   const [showForm, setShowForm] = useState(false)
+  const currentUser = useSelector((state) => state.userReducer.currentUser)
 
-  const [players, setPlayers] = useState([{ avatar: null, display_name: null }])
+  const players = props.roomDetail.userIds
   const history = useHistory()
 
   const handleGoBack = () => {
-    history.push('/dashboard/my-studios')
+    history.push('/dashboard/studios')
   }
   const toggleForm = () => {
     setShowForm(!showForm)
   }
-
-  useEffect(() => {
-    setPlayers(props.roomDetail.userIds)
-  }, [props.roomDetail])
 
   useEffect(() => {
     console.log(players)
@@ -55,6 +52,11 @@ export default function StudioHeader(props) {
                     className='playerAva'
                   />
                 ))}
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.display_name}
+                className='playerAva'
+              />
             </div>
           </div>
         </div>
