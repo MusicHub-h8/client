@@ -108,12 +108,18 @@
 /* PLAYBACK CONTROLS */
 .playback-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   border-radius: 8px;
   align-self: center;
   margin-bottom: 2rem;
   padding: 1rem 6rem;
   background-color: #0f2833;
+}
+
+.playback-btnGroup {
+  display: flex;
+  align-items: center;
 }
 .playBtn {
   font-size: 3rem !important;
@@ -128,6 +134,9 @@
   color: #f3005d;
   transform: translateY(2px);
   transition: 200ms ease-in-out;
+}
+.faBtnActive {
+  color: #f3005d !important;
 }
 .faBtnSmoll {
   font-size: 1.5rem !important;

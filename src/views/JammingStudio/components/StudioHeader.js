@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import FormAdd from './FormAdd';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import FormAdd from './FormAdd'
 
-export default function StudioHeader() {
-  const [showForm, setShowForm] = useState(false);
-
-  const players = [
-    'https://i.pravatar.cc',
-    'https://i.pravatar.cc',
-    'https://i.pravatar.cc',
-    'https://i.pravatar.cc',
-  ];
-  const history = useHistory();
+export default function StudioHeader({ roomDetail }) {
+  const [showForm, setShowForm] = useState(false)
+  const [players, setPlayers] = useState([{ avatar: null, display_name: null }])
+  const history = useHistory()
 
   const handleGoBack = () => {
-    history.goBack();
-  };
-
+    history.push('/dashboard/my-studios')
+  }
   const toggleForm = () => {
-    setShowForm(!showForm);
-    console.log(showForm);
-  };
+    setShowForm(!showForm)
+  }
 
+  useEffect(() => {
+    setPlayers(roomDetail.userIds)
+  }, [roomDetail])
+
+  useEffect(() => {
+    console.log(players)
+  }, [players])
   return (
     <>
       <div className='studio-HeaderContainer text-white'>
@@ -31,15 +30,15 @@ export default function StudioHeader() {
             <button
               className='dash-add-btn mb-2 mr-2'
               onClick={() => {
-                handleGoBack();
+                handleGoBack()
               }}
             >
               <i class='fas fa-chevron-left'></i>
             </button>
             <button
               className='dash-add-btn'
-              onClick={event => {
-                toggleForm();
+              onClick={(event) => {
+                toggleForm()
               }}
             >
               <i class='fas fa-plus'></i> Add Track
@@ -47,18 +46,19 @@ export default function StudioHeader() {
           </div>
           <div className='rightSide'>
             <div className='playerAvaContainer'>
-              {players.map(player => (
-                <img
-                  src='https://i.pravatar.cc'
-                  alt='playerava'
-                  className='playerAva'
-                />
-              ))}
+              {players &&
+                players.map((player) => (
+                  <img
+                    src={player.avatar}
+                    alt={player.display_name}
+                    className='playerAva'
+                  />
+                ))}
             </div>
           </div>
         </div>
         {showForm && <FormAdd />}
       </div>
     </>
-  );
+  )
 }

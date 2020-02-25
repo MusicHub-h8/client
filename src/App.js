@@ -9,13 +9,13 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/room/:roomId'>
+        <Route exact path='/room/:roomId'>
           <JammingStudio />
         </Route>
         <Route path='/dashboard'>
           <DashboardView />
         </Route>
-        <Route path='/'>
+        <Route exact path='/'>
           <HomeView />
         </Route>
       </Switch>

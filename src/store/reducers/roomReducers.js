@@ -6,6 +6,7 @@ import {
   SET_LOADING,
   SET_ERROR,
   DELETE_TRACK,
+  CLEAR_TRACKS,
 } from '../actions/'
 
 const initialState = {
@@ -54,6 +55,11 @@ export default function roomReducers(state = initialState, action) {
           detail: state.activeRoom.detail,
           tracks: newTracks,
         },
+      }
+    case CLEAR_TRACKS:
+      return {
+        ...state,
+        activeRoom: initialState.activeRoom,
       }
     case ADD_ROOM:
       return {
