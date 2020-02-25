@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { requestDeleteTrack, removeTrack } from '../../../store/actions';
-import { Howl, Howler } from 'howler';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { requestDeleteTrack, removeTrack } from "../../../store/actions";
+import { Howl, Howler } from "howler";
 
-import 'rc-slider/assets/index.css';
-import './style.css';
+import "rc-slider/assets/index.css";
+import "./style.css";
 
-import Slider from 'rc-slider';
+import Slider from "rc-slider";
 
 export default function Track({ audioUrl, track }) {
   const dispatch = useDispatch();
@@ -19,15 +19,15 @@ export default function Track({ audioUrl, track }) {
     new Howl({
       src: [track.file_path],
       onplay: () => {
-        console.log(track.file_path, 'is playing');
-      },
+        console.log(track.file_path, "is playing");
+      }
     })
   );
 
   useEffect(() => {
-    audio.on('load', () => {
+    audio.on("load", () => {
       // console.log(audio)
-      // audio.play()
+      audio.play();
       // console.log(audio.duration())
       // console.log(audio.seek())
     });
@@ -59,21 +59,21 @@ export default function Track({ audioUrl, track }) {
   }
 
   const sliderStyle = {
-    height: '12rem',
+    height: "12rem"
   };
   const trackStyle = [
     {
-      backgroundColor: '#f3005d',
-    },
+      backgroundColor: "#f3005d"
+    }
   ];
   const handleStyle = [
     {
       // width: '30px',
       // height: '30px',
-    },
+    }
   ];
   const railStyle = {
-    backgroundColor: '#72a8be',
+    backgroundColor: "#72a8be"
   };
 
   const handleDelete = () => {
@@ -81,18 +81,18 @@ export default function Track({ audioUrl, track }) {
   };
 
   return (
-    <div className='track'>
-      <div className='track-label text-white'>
+    <div className="track">
+      <div className="track-label text-white">
         <span>{track.instrument}</span>
         <i
-          class='fas fa-trash removeIcon'
+          class="fas fa-trash removeIcon"
           onClick={() => {
             handleDelete();
           }}
         ></i>
       </div>
 
-      <div className='volume-container text-white'>
+      <div className="volume-container text-white">
         <div style={sliderStyle}>
           <Slider
             vertical
@@ -105,11 +105,11 @@ export default function Track({ audioUrl, track }) {
         </div>
       </div>
 
-      <div className='panning-container text-white'>
+      <div className="panning-container text-white">
         <span>{`${volume}%`}</span>
-        <div className='track-btn-group'>
+        <div className="track-btn-group">
           <div
-            className={isMuted ? 'track-btn track-btn-active' : 'track-btn'}
+            className={isMuted ? "track-btn track-btn-active" : "track-btn"}
             onClick={event => {
               toggleMute();
             }}
@@ -117,7 +117,7 @@ export default function Track({ audioUrl, track }) {
             <span>M</span>
           </div>
           <div
-            className='track-btn'
+            className="track-btn"
             onClick={event => {
               toggleMute();
             }}
