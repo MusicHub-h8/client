@@ -38,7 +38,6 @@ export const requestAddTrack = trackInfo => {
         dispatch(addTrack(data));
       })
       .catch(err => {
-        console.log("---------------------------------");
         console.log(err.response);
       });
   };

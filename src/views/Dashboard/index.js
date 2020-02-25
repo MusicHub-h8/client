@@ -39,7 +39,6 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(requestCurrentUser());
     socket.on("new_invite", user => {
-      console.log("dapet invite");
       if (user._id === currentUser._id) {
         dispatch(setCurrentUser(user));
       }
@@ -166,7 +165,7 @@ const Dashboard = () => {
               }}
             >
               <Link to={`${url}/notifications`}>
-                {currentUser.pendingInvites.length && (
+                {currentUser.pendingInvites.length > 0 && (
                   <i className="fas fa-circle"></i>
                 )}
                 <i className="fas fa-bell"></i>
