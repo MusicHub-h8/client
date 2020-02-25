@@ -29,23 +29,6 @@ export default function JammingStudio() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(requestCurrentUser())
-    socket.on('new_person_enters', (room) => {
-      if (room._id.toString() === roomId) {
-        let newRoom = { detail: room, tracks }
-        console.log(newRoom)
-        dispatch(setActiveRoom(newRoom))
-      }
-      console.log(room)
-    })
-    return () => {
-      Howler.unload()
-      console.log('Jamming studio unmounted')
-      dispatch(clearTracks())
-    }
-  }, [dispatch])
-
-  useEffect(() => {
     dispatch(requestRoomDetail(roomId))
   }, [dispatch, roomId])
 
@@ -64,9 +47,22 @@ export default function JammingStudio() {
   const handleStopButton = () => {
     dispatch(triggerStop(!isStopped))
   }
-  const handlePauseButton = () => {
-    dispatch(triggerPause(!isPaused))
-  }
+  useEffect(() => {
+    dispatch(requestCurrentUser())
+    socket.on('new_person_enters', (room) => {
+      if (room._id.toString() === roomId) {
+        let newRoom = { detail: room, tracks }
+        console.log(newRoom)
+        dispatch(setActiveRoom(newRoom))
+      }
+      console.log(room)
+    })
+    return () => {
+      Howler.unload()
+      console.log('Jamming studio unmounted')
+      dispatch(clearTracks())
+    }
+  }, [dispatch])
 
   const loadingBarContainerStyle = {
     width: '200%',

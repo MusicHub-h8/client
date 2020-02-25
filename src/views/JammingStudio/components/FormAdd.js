@@ -18,6 +18,7 @@ export default function FormAdd() {
   }
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.log('fired dari event submit')
     const roomId = roomDetail._id
     const trackInfo = {
       roomId,
