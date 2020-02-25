@@ -9,10 +9,13 @@ const NotificationCard = props => {
   const handleAccept = () => {
     dispatch(requestAcceptInvitation(roomId, userId));
   };
+  console.log(props);
   return (
-    <div>
-      <p>{music_title}</p>
-      <button onClick={() => handleAccept()}>Accept</button>
+    <div className='card-studio card-notification'>
+      <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{music_title}</p>
+      <button onClick={() => handleAccept()} className='dash-add-btn'>
+        Accept
+      </button>
     </div>
   );
 };

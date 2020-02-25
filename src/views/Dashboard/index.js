@@ -14,7 +14,6 @@ import {
   useRouteMatch,
   useHistory
 } from "react-router-dom";
-import io from "socket.io-client";
 import Recommended from "./components/Recommended";
 import Explore from "./components/Explore";
 import MyStudio from "./components/MyStudio";
@@ -99,19 +98,10 @@ const Dashboard = () => {
   return (
     <>
       <div className="dash-container">
+        {addStudioForm()}
         <div className="dash-side-bar">
           <h1 className="text-lobster text-white dash-logo">MusicHub</h1>
           <div className="dash-nav">
-            <Link className={linkActive("dashboard")} to={`${url}`}>
-              <ReactCSSTransitionGroup
-                transitionName="example"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-              >
-                {linkActiveDiv("dashboard")}
-              </ReactCSSTransitionGroup>
-              Home
-            </Link>
             <Link
               className={linkActive("recommended")}
               to={`${url}/recommended`}
@@ -123,7 +113,7 @@ const Dashboard = () => {
               >
                 {linkActiveDiv("recommended")}
               </ReactCSSTransitionGroup>
-              Recommended
+              Recommended Players
             </Link>
             <Link className={linkActive("explore")} to={`${url}/explore`}>
               <ReactCSSTransitionGroup
@@ -133,17 +123,27 @@ const Dashboard = () => {
               >
                 {linkActiveDiv("explore")}
               </ReactCSSTransitionGroup>
-              Explore
+              All Players
             </Link>
-            <Link className={linkActive("my-studios")} to={`${url}/my-studios`}>
+            <Link className={linkActive("studios")} to={`${url}/studios`}>
               <ReactCSSTransitionGroup
                 transitionName="example"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}
               >
-                {linkActiveDiv("my-studios")}
+                {linkActiveDiv("studios")}
               </ReactCSSTransitionGroup>
-              My Studios
+              Studios
+            </Link>
+            <Link className={linkActive("dashboard")} to={`${url}`}>
+              <ReactCSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}
+              >
+                {linkActiveDiv("dashboard")}
+              </ReactCSSTransitionGroup>
+              Profile
             </Link>
           </div>
         </div>
@@ -185,13 +185,10 @@ const Dashboard = () => {
             transitionName="example"
             transitionEnterTimeout={500}
             transitionLeaveTimeout={300}
-          >
-            {addStudioForm()}
-          </ReactCSSTransitionGroup>
+          ></ReactCSSTransitionGroup>
           <div className="dash-content">
             <Switch>
               <Route exact path={path}>
-                <h3 style={{ width: "100%", textAlign: "center" }}>Welcome</h3>
                 <Profile />
               </Route>
               <Route path={`${path}/recommended`}>
@@ -200,7 +197,7 @@ const Dashboard = () => {
               <Route path={`${path}/explore`}>
                 <Explore />
               </Route>
-              <Route path={`${path}/my-studios`}>
+              <Route path={`${path}/studios`}>
                 <MyStudio myRooms={myRooms} loading={loading} error={error} />
               </Route>
               <Route path={`${path}/notifications`}>
