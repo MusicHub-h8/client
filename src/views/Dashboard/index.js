@@ -4,6 +4,7 @@ import {
   requestRooms,
   setLoading,
   requestCurrentUser,
+  setCurrentUser,
 } from '../../store/actions';
 import './components/styles.css';
 import {
@@ -22,10 +23,11 @@ import AddStudioForm from './components/AddStudioForm';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const Dashboard = () => {
+  const socket = window.socket;
   const history = useHistory();
   const [showForm, setShowForm] = useState(false);
   const { url, path } = useRouteMatch();
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = useSelector(state => state.userReducer.currentUser);
 
   const dispatch = useDispatch();
   const myRooms = useSelector(state => state.roomReducer.myRooms);
@@ -34,7 +36,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(requestCurrentUser());
-  }, [dispatch]);
+    socket.on('new_invite', user => {
+      if (user._id === currentUser._id) {
+        dispatch(setCurrentUser(user));
+      }
+    });
+  }, [dispatch, socket]);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -157,7 +164,9 @@ const Dashboard = () => {
               }}
             >
               <Link to={`${url}/notifications`}>
-                <i className='fas fa-circle'></i>
+                {currentUser.pendingInvites.length > 0 && (
+                  <i className='fas fa-circle'></i>
+                )}
                 <i className='fas fa-bell'></i>
               </Link>
             </div>

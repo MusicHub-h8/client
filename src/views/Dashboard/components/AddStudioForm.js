@@ -47,7 +47,6 @@ const AddStudioForm = props => {
               id='musicTitle'
               className='input-form'
               type='text'
-              required
               onChange={handleChangeMusicTitle}
               value={musicTitle}
               required

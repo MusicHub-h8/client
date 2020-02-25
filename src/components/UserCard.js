@@ -33,7 +33,7 @@ const UserCard = props => {
           <p className='card-name'>{player.display_name}</p>
           <p>{player.genre}</p>
           <div className='card-right-bottom'>
-            {['Guitar', 'Bass', 'Piano'].map((instrument, index) => {
+            {player.instruments.map((instrument, index) => {
               return (
                 <p
                   key={'instrument' + index}

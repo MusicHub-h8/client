@@ -9,9 +9,49 @@ export const GET_ROOMDETAILS = 'GET_ROOMDETAILS'
 export const SET_RECOMMENDED_USERS = 'SET_RECOMMENDED_USERS'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const DELETE_INVITE = 'DELETE_INVITES'
-
+export const SET_ALL_USERS = 'SET_ALL_USERS'
 export const DELETE_TRACK = 'DELETE_TRACK'
 export const ADD_TRACK = 'ADD_TRACK'
+
+// ACTIONS FOR PLAYBACKS
+export const PUSH_LOADEDTRACK = 'PUSH_LOADEDTRACK'
+export const pushTrack = (trackId) => {
+  return {
+    type: PUSH_LOADEDTRACK,
+    payload: trackId,
+  }
+}
+export const PLAY_ALL = 'PLAY_ALL'
+export const triggerPlay = (currentStatus) => {
+  return {
+    type: PLAY_ALL,
+    payload: currentStatus,
+  }
+}
+
+export const PAUSE_ALL = 'PAUSE_ALL'
+export const triggerPause = (currentStatus) => {
+  return {
+    type: PAUSE_ALL,
+    payload: currentStatus,
+  }
+}
+
+export const STOP_ALL = 'STOP_ALL'
+export const triggerStop = (currentStatus) => {
+  return {
+    type: STOP_ALL,
+    payload: currentStatus,
+  }
+}
+
+export const CLEAR_TRACKS = 'CLEAR_TRACKS'
+export const clearTracks = () => {
+  return {
+    type: CLEAR_TRACKS,
+    payload: [],
+  }
+}
 
 // request => hit server
 // recieve => dispatch reducer
@@ -30,7 +70,6 @@ export const requestAddTrack = (trackInfo) => {
     let formData = new FormData()
     formData.append('instrument', instrument)
     formData.append('track', selectedFile)
-    console.log(formData)
     axios
       .post(url, formData, config)
       .then(({ data }) => {
@@ -43,6 +82,7 @@ export const requestAddTrack = (trackInfo) => {
       })
   }
 }
+
 export const addTrack = (trackDetail) => {
   return {
     type: ADD_TRACK,
@@ -66,7 +106,6 @@ export const requestDeleteTrack = (trackId) => {
       },
     })
       .then(() => {
-        console.log('hit disiniii')
         dispatch(removeTrack(trackId))
       })
       .catch(console.log)
@@ -79,6 +118,12 @@ export const setActiveRoom = (roomDetail) => {
   }
 }
 
+export const setAllUsers = (users) => {
+  return {
+    type: SET_ALL_USERS,
+    payload: users,
+  }
+}
 export const requestRoomDetail = (roomId) => {
   const access_token = localStorage.getItem('access_token')
   return (dispatch) => {
@@ -239,5 +284,23 @@ export const requestAcceptInvitation = (roomId, userId) => {
         console.log(data, 'dari requestAcceptInvitation')
       })
       .catch(console.log)
+  }
+}
+
+export const fetchAllUsers = () => {
+  console.log('fetchAllUsers invoked')
+  const access_token = localStorage.getItem('access_token')
+  console.log(access_token)
+  return (dispatch) => {
+    axios({
+      method: 'GET',
+      url: '/users',
+      headers: {
+        access_token,
+      },
+    }).then(({ data }) => {
+      dispatch(setLoading(false))
+      dispatch(setAllUsers(data))
+    })
   }
 }
