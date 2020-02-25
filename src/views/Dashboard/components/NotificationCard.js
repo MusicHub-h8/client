@@ -1,6 +1,6 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { requestAcceptInvitation } from '../../../store/actions';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { requestAcceptInvitation } from "../../../store/actions";
 
 const NotificationCard = props => {
   const dispatch = useDispatch();
@@ -11,9 +11,9 @@ const NotificationCard = props => {
   };
   console.log(props);
   return (
-    <div className='card-studio card-notification'>
-      <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{music_title}</p>
-      <button onClick={() => handleAccept()} className='dash-add-btn'>
+    <div className="card-studio card-notification">
+      <p style={{ fontSize: "24px", fontWeight: "bold" }}>{music_title}</p>
+      <button onClick={() => handleAccept()} className="dash-add-btn">
         Accept
       </button>
     </div>
