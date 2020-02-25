@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import { requestRoomDetail, requestCurrentUser } from "../../store/actions/";
+import {
+  requestRoomDetail,
+  requestCurrentUser,
+  setActiveRoom
+} from "../../store/actions/";
 
 import io from "socket.io-client";
 
@@ -22,7 +26,14 @@ export default function JammingStudio() {
 
   useEffect(() => {
     dispatch(requestCurrentUser());
-    // socket.on("new_person_enters", room)
+    socket.on("new_person_enters", room => {
+      if (room._id.toString() === roomId) {
+        let newRoom = { detail: room, tracks };
+        console.log(newRoom);
+        dispatch(setActiveRoom(newRoom));
+      }
+      console.log(room);
+    });
   }, [dispatch]);
 
   useEffect(() => {
