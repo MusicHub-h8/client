@@ -7,7 +7,7 @@
   width: 70%;
   font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   padding: 16px;
-  background-color: #80062b;
+  background-color: #09394e;
   margin-top: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
@@ -42,9 +42,8 @@
 .btn-invite {
   font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   color: white;
-  width: 60px;
-  height: 25px;
   border-radius: 5px;
+  padding: 6px;
   background-color: #72a8be;
   outline: none;
   border: none;
@@ -53,6 +52,7 @@
 
 .btn-invite:hover {
   cursor: pointer;
+  padding: 8px;
   background-color: #f3005d;
 }
 

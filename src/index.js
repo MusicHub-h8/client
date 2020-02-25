@@ -1,22 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import io from "socket.io-client";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import "bootstrap/dist/css/bootstrap.min.css";
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Provider } from "react-redux";
-import store from "./store";
-
-const socket = io("http://localhost:4000");
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

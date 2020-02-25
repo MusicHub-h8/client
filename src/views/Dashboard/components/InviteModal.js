@@ -27,7 +27,7 @@ const InviteModal = props => {
     if (myRooms.owned.length > 0) {
       return myRooms.owned.map(studio => (
         <p
-          className='cursor-pointer'
+          className='cursor-pointer studio-invite'
           onClick={() => inviteUser(studio._id)}
           key={studio._id}
         >
@@ -38,9 +38,9 @@ const InviteModal = props => {
     return <p>You have no studio yet...</p>;
   };
   return (
-    <div className='modal-invite'>
+    <div className='add-studio-form'>
       <span
-        className='cursor-pointer'
+        className='cursor-pointer cancel-form'
         style={{ alignSelf: 'flex-end' }}
         onClick={props.handleShowModal}
       >
