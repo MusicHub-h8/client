@@ -70,6 +70,9 @@ export const requestAddTrack = (trackInfo) => {
     let formData = new FormData()
     formData.append('instrument', instrument)
     formData.append('track', selectedFile)
+    console.log(trackInfo)
+    console.log(url)
+    console.log(config)
     axios
       .post(url, formData, config)
       .then(({ data }) => {
