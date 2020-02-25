@@ -28,7 +28,21 @@ const Profile = () => {
   const instrumentsContent = () => {
     console.log(currentUser, 'currentUser on instrumentsContent');
     if (currentUser.instruments.length > 0) {
-      return <p>{JSON.stringify(currentUser.instruments)}</p>;
+      return currentUser.instruments.map(instrument => (
+        <p
+          key={instrument}
+          style={{
+            padding: '8px',
+            marginBottom: 0,
+            backgroundColor: '#29596e',
+            borderRadius: '15px',
+            marginRight: '6px',
+            marginLeft: '6px',
+          }}
+        >
+          {instrument}
+        </p>
+      ));
     }
     return (
       <button className='dash-add-btn' onClick={handleShowForm}>
@@ -39,7 +53,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className='container-profile-left'>
+      {/* <div className='container-profile-left'>
         <p>Name</p>
         <p>Email Address</p>
         <p>Genre</p>
@@ -48,17 +62,32 @@ const Profile = () => {
         <p>{currentUser.display_name}</p>
         <p>{currentUser.email}</p>
         <p>{currentUser.genre}</p>
-      </div>
-      <div className='container-profile-instruments'>
-        <h5>Instruments</h5>
-        {instrumentsContent()}
-        <ReactCSSTransitionGroup
-          transitionName='example'
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {addStudioForm()}
-        </ReactCSSTransitionGroup>
+      </div> */}
+      <img
+        src={currentUser.avatar}
+        alt='User Avatar'
+        style={{
+          height: '150px',
+          borderRadius: '10px',
+        }}
+      />
+      <div className='container-profile'>
+        <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
+          {currentUser.display_name}
+        </p>
+        <p>{currentUser.email}</p>
+        <p>{currentUser.genre}</p>
+        <div className='container-profile-instruments'>
+          {/* <h5 style={{ fontWeight: 'bold' }}>Instruments</h5> */}
+          {instrumentsContent()}
+          <ReactCSSTransitionGroup
+            transitionName='example'
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+          >
+            {addStudioForm()}
+          </ReactCSSTransitionGroup>
+        </div>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ export default function StudioHeader(props) {
   const history = useHistory()
 
   const handleGoBack = () => {
-    history.push('/dashboard/my-studios')
+    history.push('/dashboard/studios')
   }
   const toggleForm = () => {
     setShowForm(!showForm)
