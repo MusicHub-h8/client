@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Howler } from 'howler';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { Howler } from "howler";
 
 import {
   requestRoomDetail,
@@ -11,14 +11,14 @@ import {
   triggerPause,
   triggerStop,
   clearTracks,
-  setActiveRoom,
-} from '../../store/actions/';
+  setActiveRoom
+} from "../../store/actions/";
 
-import './style.css';
+import "./style.css";
 
-import ChatRoom from '../../components/ChatRoom';
-import StudioHeader from './components/StudioHeader';
-import Track from './components/Track';
+import ChatRoom from "../../components/ChatRoom";
+import StudioHeader from "./components/StudioHeader";
+import Track from "./components/Track";
 
 export default function JammingStudio() {
   const socket = window.socket;
@@ -27,7 +27,7 @@ export default function JammingStudio() {
 
   useEffect(() => {
     dispatch(requestCurrentUser());
-    socket.on('new_person_enters', room => {
+    socket.on("new_person_enters", room => {
       if (room._id.toString() === roomId) {
         let newRoom = { detail: room, tracks };
         console.log(newRoom);
@@ -37,7 +37,7 @@ export default function JammingStudio() {
     });
     return () => {
       Howler.unload();
-      console.log('Jamming studio unmounted');
+      console.log("Jamming studio unmounted");
       dispatch(clearTracks());
     };
   }, [dispatch]);
@@ -66,34 +66,34 @@ export default function JammingStudio() {
   };
 
   const loadingBarContainerStyle = {
-    width: '200%',
-    height: '5px',
-    marginBottom: '1rem',
-    borderRadius: '3px',
-    backgroundColor: 'lavender',
+    width: "200%",
+    height: "5px",
+    marginBottom: "1rem",
+    borderRadius: "3px",
+    backgroundColor: "lavender"
   };
   const [loadingBarProgress, setLoadingBarProgress] = useState({
-    width: '0%',
-    height: '100%',
-    borderRadius: '3px',
-    backgroundColor: 'lawngreen',
+    width: "0%",
+    height: "100%",
+    borderRadius: "3px",
+    backgroundColor: "lawngreen"
   });
 
   return (
     <>
-      <div className='container-chatroom'>
+      <div className="container-chatroom">
         <ChatRoom
           currentUser={currentUser}
           roomId={roomId}
           roomDetail={roomDetail}
         />
       </div>
-      <div className='studio'>
-        <div className='studio-Container'>
-          <div className='upper'>
+      <div className="studio">
+        <div className="studio-Container">
+          <div className="upper">
             <StudioHeader roomDetail={roomDetail} />
-            <div className='studio-Main'>
-              <div className='trackContainer'>
+            <div className="studio-Main">
+              <div className="trackContainer">
                 {tracks.map((track, i) => (
                   <Track key={i} instrument track={track} />
                 ))}
@@ -102,8 +102,8 @@ export default function JammingStudio() {
           </div>
 
           {loadedTracks.length == tracks.length && loadedTracks.length !== 0 && (
-            <div className='playback-container text-white'>
-              <div className='playback-btnGroup'>
+            <div className="playback-container text-white">
+              <div className="playback-btnGroup">
                 <i
                   class={`fas fa-stop faBtn faBtnSmoll`}
                   onClick={() => {
@@ -112,7 +112,7 @@ export default function JammingStudio() {
                 ></i>
                 <i
                   class={`fas faBtn playBtn ${
-                    isPlaying ? 'faBtnActive fa-pause' : 'fa-play'
+                    isPlaying ? "faBtnActive fa-pause" : "fa-play"
                   }`}
                   onClick={() => {
                     if (isPaused) {
