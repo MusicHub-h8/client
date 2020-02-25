@@ -9,8 +9,6 @@ import {
   setActiveRoom
 } from "../../store/actions/";
 
-import io from "socket.io-client";
-
 import "./style.css";
 
 import ChatRoom from "../../components/ChatRoom";
@@ -18,9 +16,8 @@ import StudioHeader from "./components/StudioHeader";
 import Track from "./components/Track";
 import PlaybackControl from "./components/PlaybackControl";
 
-const socket = io("http://localhost:4000");
-
 export default function JammingStudio() {
+  const socket = window.socket;
   const { roomId } = useParams();
   const dispatch = useDispatch();
 

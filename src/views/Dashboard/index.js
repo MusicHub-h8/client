@@ -23,9 +23,8 @@ import Profile from "./components/Profile";
 import AddStudioForm from "./components/AddStudioForm";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-const socket = io("http://localhost:4000");
-
 const Dashboard = () => {
+  const socket = window.socket;
   const history = useHistory();
   const [showForm, setShowForm] = useState(false);
   const { url, path } = useRouteMatch();
