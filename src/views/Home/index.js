@@ -23,7 +23,7 @@ const Home = () => {
         dispatch(setCurrentUser(data.user));
         localStorage.setItem('currentUser', JSON.stringify(data.user));
         localStorage.setItem('access_token', data.access_token);
-        history.push('/dashboard');
+        history.push('/dashboard/recommended');
       })
       .catch(console.log);
   };

@@ -8,14 +8,20 @@ const StudioCard = props => {
   const goToStudio = roomId => {
     history.push('/room/' + roomId);
   };
+  console.log(props, 'props from StudioCard');
   return (
     <div className='card-studio' onClick={() => goToStudio(_id)}>
-      <p>
+      <p style={{ fontSize: '24px' }}>
         <strong>{music_title}</strong>
       </p>
-      <p>{description}</p>
-      <p>{roomOwner}</p>
-      {props.ownership ? <p>Owned</p> : <p>Involved</p>}
+      <p style={{ fontSize: '20px', color: '#67acca' }}>{description}</p>
+      {props.ownership ? (
+        <p style={{ marginBottom: 0, color: '#ff86b5' }}>Owned</p>
+      ) : (
+        <p style={{ marginBottom: 0, color: '#ff86b5' }}>
+          Involved - {roomOwner.display_name}
+        </p>
+      )}
     </div>
   );
 };

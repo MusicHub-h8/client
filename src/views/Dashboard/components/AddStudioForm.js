@@ -33,37 +33,45 @@ const AddStudioForm = props => {
   return (
     <div className='add-studio-form'>
       <span
-        className='cursor-pointer'
+        className='cursor-pointer cancel-form'
         style={{ alignSelf: 'flex-end' }}
         onClick={props.handleShowForm}
       >
         Cancel
       </span>
       <h1>Add Studio</h1>
-      <form action='POST' onSubmit={onSubmitAddStudio}>
-        <label htmlFor='musicTitle'>Music Title</label>
-        <br />
-        <input
-          id='musicTitle'
-          className='input-form'
-          type='text'
-          required
-          onChange={handleChangeMusicTitle}
-          value={musicTitle}
-        />
-        <br />
-        <label htmlFor='description'>Description</label>
-        <br />
-        <input
-          id='description'
-          className='input-form'
-          type='text'
-          onChange={handleChangeDescription}
-          value={description}
-        />
-        <br />
-        <input className='submit-add-studio' type='submit' value='Add Studio' />
-      </form>
+      <div className='add-studio-inside'>
+        <form action='POST' onSubmit={onSubmitAddStudio}>
+          <div className='input-field'>
+            <input
+              id='musicTitle'
+              className='input-form'
+              type='text'
+              required
+              onChange={handleChangeMusicTitle}
+              value={musicTitle}
+              required
+            />
+            <label htmlFor='musicTitle'>Enter studio name</label>
+            <span></span>
+          </div>
+          <br />
+          <div className='input-field'>
+            <input
+              id='description'
+              className='input-form'
+              type='text'
+              onChange={handleChangeDescription}
+              value={description}
+              required
+            />
+            <label htmlFor='description'>Enter studio description</label>
+            <span></span>
+          </div>
+          <br />
+          <input className='dash-add-btn' type='submit' value='Add Studio' />
+        </form>
+      </div>
     </div>
   );
 };

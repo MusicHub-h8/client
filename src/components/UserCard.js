@@ -46,7 +46,11 @@ const UserCard = props => {
           </div>
         </div>
         <div
-          style={{ alignSelf: 'flex-end', height: '100%', marginLeft: 'auto' }}
+          style={{
+            alignSelf: 'center',
+            height: '100%',
+            marginLeft: 'auto',
+          }}
         >
           <button onClick={() => handleShowModal()} className='btn-invite'>
             Invite
