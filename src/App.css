@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+.text-lobster {
+  font-family: 'Lobster', Arial, Helvetica, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card-recommended {
+  display: flex;
+  width: 70%;
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
+  padding: 16px;
+  background-color: #09394e;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.card-recommended img {
+  height: 75px;
+  width: 75px;
+  border-radius: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card-recommended p {
+  margin: 0;
+}
+
+.card-left {
+  display: flex;
+}
+
+.card-right {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-left: 24px;
+}
+
+.card-right-bottom {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.btn-invite {
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   color: white;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: #72a8be;
+  outline: none;
+  border: none;
+  transition: ease-in-out 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-invite:hover {
+  cursor: pointer;
+  padding: 8px;
+  background-color: #f3005d;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cursor-pointer {
+  cursor: pointer;
 }
