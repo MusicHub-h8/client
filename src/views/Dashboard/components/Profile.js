@@ -32,7 +32,7 @@ const Profile = () => {
         <p
           key={instrument}
           style={{
-            padding: "8px",
+            padding: "8px 20px",
             marginBottom: 0,
             backgroundColor: "#29596e",
             borderRadius: "15px",
