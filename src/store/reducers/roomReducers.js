@@ -18,7 +18,9 @@ const initialState = {
   error: null,
   activeRoom: {
     tracks: [],
-    detail: {},
+    detail: {
+      userIds: [],
+    },
   },
 };
 

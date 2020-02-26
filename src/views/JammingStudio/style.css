@@ -54,3 +54,18 @@ body::-webkit-scrollbar-track {
 .MuiToolbar-regular {
   min-height: 5rem !important;
 }
+
+textarea {
+  background-color: #0f2833 !important;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.rn-backgroundColor-14lw9ot {
+  background-color: #0f2833 !important;
+}
+
+.rn-borderTopColor-1sejfvs {
+  border-top-color: #0f2833 !important;
+}
