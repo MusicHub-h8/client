@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { requestAddRoom } from '../../../store/actions';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { requestAddRoom } from '../../../store/actions'
 
-const AddStudioForm = props => {
-  const dispatch = useDispatch();
-  const [musicTitle, setMusicTitle] = useState('');
-  const [description, setDescription] = useState('');
+const AddStudioForm = (props) => {
+  const dispatch = useDispatch()
+  const [musicTitle, setMusicTitle] = useState('')
+  const [description, setDescription] = useState('')
 
-  const onSubmitAddStudio = event => {
-    event.preventDefault();
-    const access_token = localStorage.getItem('access_token');
-    setMusicTitle('');
-    setDescription('');
-    props.handleShowForm();
+  const onSubmitAddStudio = (event) => {
+    event.preventDefault()
+    const access_token = localStorage.getItem('access_token')
+    setMusicTitle('')
+    setDescription('')
+    props.handleShowForm()
     dispatch(
       requestAddRoom({
         music_title: musicTitle,
         description,
         access_token,
       })
-    );
-  };
+    )
+  }
 
-  const handleChangeMusicTitle = event => {
-    setMusicTitle(event.target.value);
-  };
+  const handleChangeMusicTitle = (event) => {
+    setMusicTitle(event.target.value)
+  }
 
-  const handleChangeDescription = event => {
-    setDescription(event.target.value);
-  };
+  const handleChangeDescription = (event) => {
+    setDescription(event.target.value)
+  }
 
   return (
     <div className='add-studio-form'>
@@ -44,6 +44,7 @@ const AddStudioForm = props => {
         <form action='POST' onSubmit={onSubmitAddStudio}>
           <div className='input-field'>
             <input
+              autoComplete='off'
               id='musicTitle'
               className='input-form'
               type='text'
@@ -57,6 +58,7 @@ const AddStudioForm = props => {
           <br />
           <div className='input-field'>
             <input
+              autoComplete='off'
               id='description'
               className='input-form'
               type='text'
@@ -72,7 +74,7 @@ const AddStudioForm = props => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AddStudioForm;
+export default AddStudioForm

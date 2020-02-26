@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import InviteModal from '../views/Dashboard/components/InviteModal';
+import React, { useState } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import InviteModal from '../views/Dashboard/components/InviteModal'
 
-const UserCard = props => {
-  const { player } = props;
-  const [showModal, setShowModal] = useState(false);
-  const inviteUser = userId => {
+const UserCard = (props) => {
+  const { player } = props
+  const [showModal, setShowModal] = useState(false)
+  const inviteUser = (userId) => {
     if (showModal) {
-      return <InviteModal userId={userId} handleShowModal={handleShowModal} />;
+      return <InviteModal userId={userId} handleShowModal={handleShowModal} />
     }
-    return;
-  };
+    return
+  }
   const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
+    setShowModal(!showModal)
+  }
 
   return (
     <>
@@ -27,7 +27,7 @@ const UserCard = props => {
 
       <div className='card-recommended'>
         <div className='card-left'>
-          <img src={player.avatar} alt='Player Avatar' />
+          <img src={player.avatar} alt={player.display_name} />
         </div>
         <div className='card-right'>
           <p className='card-name'>{player.display_name}</p>
@@ -41,7 +41,7 @@ const UserCard = props => {
                 >
                   {instrument}
                 </p>
-              );
+              )
             })}
           </div>
         </div>
@@ -58,7 +58,7 @@ const UserCard = props => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default UserCard;
+export default UserCard

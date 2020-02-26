@@ -247,7 +247,6 @@ export const requestCurrentUser = () => {
       },
     })
       .then(({ data }) => {
-        console.log(data, 'dataneh')
         dispatch(setLoading(false))
         dispatch(setCurrentUser(data))
       })
