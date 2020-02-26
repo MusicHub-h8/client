@@ -24,14 +24,13 @@ export default function StudioHeader(props) {
       <div className="studio-HeaderContainer text-white">
         <div className="studio-heading">
           <div className="leftSide">
-            <button
-              className="dash-add-btn mb-2 mr-2"
+            <i
+              style={{ width: "2rem" }}
+              className="faBtn fas fa-2x fa-chevron-left"
               onClick={() => {
                 handleGoBack();
               }}
-            >
-              <i class="fas fa-chevron-left"></i>
-            </button>
+            ></i>
             <button
               className="dash-add-btn"
               onClick={event => {
