@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from "react";
-import UserCard from "../../../components/UserCard";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchAllUsers } from "../../../store/actions";
-import Dropdown from "react-bootstrap/Dropdown";
+import React, { useEffect, useState } from 'react';
+import UserCard from '../../../components/UserCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllUsers, setLoadingAllUsers } from '../../../store/actions';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Loading from './Loading';
 const Explore = () => {
-  const allUsers = useSelector(state => state.userReducer.allUsers);
+  const allUsers = useSelector(state => state.allUserReducer.allUsers);
+  const loading = useSelector(state => state.allUserReducer.loading);
+  const error = useSelector(state => state.allUserReducer.error);
   const [result, setResult] = useState([]);
 
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(setLoadingAllUsers(true));
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
   const searchByKeyword = keyword => {
     if (keyword.length > 0) {
       setIsSearching(true);
-      if (keyword === "all") {
+      if (keyword === 'all') {
         setResult(allUsers);
       } else {
         const searchResult = allUsers.filter(user => {
@@ -35,42 +39,44 @@ const Explore = () => {
   };
 
   const [isSearching, setIsSearching] = useState(false);
+  if (loading) return <Loading />;
+  if (error) return <p className='text-center mt-5'>Error...</p>;
   return (
     <>
-      <div style={{ flexDirection: "row", width: "70%", marginBottom: "1rem" }}>
+      <div style={{ flexDirection: 'row', width: '70%', marginBottom: '1rem' }}>
         <Dropdown>
-          <Dropdown.Toggle variant="info" id="dropdown-basic">
+          <Dropdown.Toggle variant='info' id='dropdown-basic'>
             Filter By Instruments
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => searchByKeyword("all")}>
+            <Dropdown.Item onClick={() => searchByKeyword('all')}>
               All
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("guitar")}>
+            <Dropdown.Item onClick={() => searchByKeyword('guitar')}>
               Guitar
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("bass")}>
+            <Dropdown.Item onClick={() => searchByKeyword('bass')}>
               Bass
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("drum")}>
+            <Dropdown.Item onClick={() => searchByKeyword('drum')}>
               Drum
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("piano")}>
+            <Dropdown.Item onClick={() => searchByKeyword('piano')}>
               Piano
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("keyboard")}>
+            <Dropdown.Item onClick={() => searchByKeyword('keyboard')}>
               Keyboard
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("vocal")}>
+            <Dropdown.Item onClick={() => searchByKeyword('vocal')}>
               Vocal
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("violin")}>
+            <Dropdown.Item onClick={() => searchByKeyword('violin')}>
               Violin
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("acapella")}>
+            <Dropdown.Item onClick={() => searchByKeyword('acapella')}>
               Acapella
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => searchByKeyword("saxophone")}>
+            <Dropdown.Item onClick={() => searchByKeyword('saxophone')}>
               Saxophone
             </Dropdown.Item>
           </Dropdown.Menu>

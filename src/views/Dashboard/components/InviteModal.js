@@ -16,6 +16,7 @@ const InviteModal = props => {
       },
     })
       .then(({ data }) => {
+        props.handleShowModal();
         console.log(data);
       })
       .catch(console.log);

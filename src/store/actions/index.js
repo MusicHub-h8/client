@@ -1,55 +1,61 @@
-import axios from "../../api/axiosInstance";
+import axios from '../../api/axiosInstance';
 
-export const GET_MYROOMS = "GET_MYROOMS";
-export const ADD_ROOM = "ADD_ROOM";
-export const SET_LOADING = "SET_LOADING";
-export const SET_ERROR = "SET_ERROR";
-export const GET_TRACKS = "GET_TRACKS";
-export const GET_ROOMDETAILS = "GET_ROOMDETAILS";
-export const SET_RECOMMENDED_USERS = "SET_RECOMMENDED_USERS";
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
-export const DELETE_INVITE = "DELETE_INVITES";
-export const SET_ALL_USERS = "SET_ALL_USERS";
-export const DELETE_TRACK = "DELETE_TRACK";
-export const ADD_TRACK = "ADD_TRACK";
+export const GET_MYROOMS = 'GET_MYROOMS';
+export const ADD_ROOM = 'ADD_ROOM';
+export const SET_LOADING_USER = 'SET_LOADING_USER';
+export const SET_ERROR_USER = 'SET_ERROR_USER';
+export const SET_LOADING_ALL_USERS = 'SET_LOADING_ALL_USER';
+export const SET_ERROR_ALL_USERS = 'SET_ERROR_ALL_USER';
+export const SET_LOADING_RECOMMENDED_USERS = 'SET_LOADING_RECOMMENDED_USER';
+export const SET_ERROR_RECOMMENDED_USERS = 'SET_ERROR_RECOMMENDED_USER';
+export const SET_LOADING_ROOM = 'SET_LOADING_ROOM';
+export const SET_ERROR_ROOM = 'SET_ERROR_ROOM';
+export const GET_TRACKS = 'GET_TRACKS';
+export const GET_ROOMDETAILS = 'GET_ROOMDETAILS';
+export const SET_RECOMMENDED_USERS = 'SET_RECOMMENDED_USERS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const DELETE_INVITE = 'DELETE_INVITES';
+export const SET_ALL_USERS = 'SET_ALL_USERS';
+export const DELETE_TRACK = 'DELETE_TRACK';
+export const ADD_TRACK = 'ADD_TRACK';
 
 // ACTIONS FOR PLAYBACKS
-export const PUSH_LOADEDTRACK = "PUSH_LOADEDTRACK";
+export const PUSH_LOADEDTRACK = 'PUSH_LOADEDTRACK';
 export const pushTrack = trackId => {
   return {
     type: PUSH_LOADEDTRACK,
-    payload: trackId
+    payload: trackId,
   };
 };
-export const PLAY_ALL = "PLAY_ALL";
+export const PLAY_ALL = 'PLAY_ALL';
 export const triggerPlay = currentStatus => {
   return {
     type: PLAY_ALL,
-    payload: currentStatus
+    payload: currentStatus,
   };
 };
 
-export const PAUSE_ALL = "PAUSE_ALL";
+export const PAUSE_ALL = 'PAUSE_ALL';
 export const triggerPause = currentStatus => {
   return {
     type: PAUSE_ALL,
-    payload: currentStatus
+    payload: currentStatus,
   };
 };
 
-export const STOP_ALL = "STOP_ALL";
+export const STOP_ALL = 'STOP_ALL';
 export const triggerStop = currentStatus => {
   return {
     type: STOP_ALL,
-    payload: currentStatus
+    payload: currentStatus,
   };
 };
 
-export const CLEAR_TRACKS = "CLEAR_TRACKS";
+export const CLEAR_TRACKS = 'CLEAR_TRACKS';
 export const clearTracks = () => {
   return {
     type: CLEAR_TRACKS,
-    payload: []
+    payload: [],
   };
 };
 
@@ -57,25 +63,25 @@ export const clearTracks = () => {
 // recieve => dispatch reducer
 
 export const requestAddTrack = trackInfo => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   const { instrument, base64encodedFile, roomId } = trackInfo;
   console.log(base64encodedFile);
   return dispatch => {
     const url = `/tracks/${roomId}`;
     axios({
-      method: "POST",
+      method: 'POST',
       url,
       data: {
         instrument,
-        track: base64encodedFile
+        track: base64encodedFile,
       },
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
         dispatch(addTrack(data));
-        console.log(data, "ini dari hasil uplot");
+        console.log(data, 'ini dari hasil uplot');
       })
       .catch(console.log);
   };
@@ -84,24 +90,24 @@ export const requestAddTrack = trackInfo => {
 export const addTrack = trackDetail => {
   return {
     type: ADD_TRACK,
-    payload: trackDetail
+    payload: trackDetail,
   };
 };
 export const removeTrack = deletedTrackId => {
   return {
     type: DELETE_TRACK,
-    payload: deletedTrackId
+    payload: deletedTrackId,
   };
 };
 export const requestDeleteTrack = trackId => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/tracks/${trackId}`,
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(() => {
         dispatch(removeTrack(trackId));
@@ -112,28 +118,28 @@ export const requestDeleteTrack = trackId => {
 export const setActiveRoom = roomDetail => {
   return {
     type: GET_ROOMDETAILS,
-    payload: roomDetail
+    payload: roomDetail,
   };
 };
 
 export const setAllUsers = users => {
   return {
     type: SET_ALL_USERS,
-    payload: users
+    payload: users,
   };
 };
 export const requestRoomDetail = roomId => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "GET",
+      method: 'GET',
       url: `/rooms/${roomId}`,
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
-        console.log("request room detail jalan");
+        console.log('request room detail jalan');
         dispatch(setActiveRoom(data));
       })
       .catch(err => {
@@ -145,22 +151,22 @@ export const requestRoomDetail = roomId => {
 export const getRooms = rooms => {
   return {
     type: GET_MYROOMS,
-    payload: rooms
+    payload: rooms,
   };
 };
 
 export const requestRooms = () => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "GET",
-      url: "/rooms/me",
+      method: 'GET',
+      url: '/rooms/me',
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
-        dispatch(setLoading(false));
+        dispatch(setLoadingRoom(false));
         dispatch(getRooms(data));
       })
       .catch(console.log);
@@ -170,7 +176,7 @@ export const requestRooms = () => {
 export const addRoom = room => {
   return {
     type: ADD_ROOM,
-    payload: room
+    payload: room,
   };
 };
 
@@ -178,15 +184,15 @@ export const requestAddRoom = room => {
   const { music_title, description, access_token } = room;
   return dispatch => {
     axios({
-      method: "POST",
-      url: "/rooms",
+      method: 'POST',
+      url: '/rooms',
       data: {
         music_title,
-        description
+        description,
       },
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
         dispatch(addRoom(data));
@@ -195,39 +201,81 @@ export const requestAddRoom = room => {
   };
 };
 
-export const setLoading = value => {
+export const setLoadingUser = value => {
   return {
-    type: SET_LOADING,
-    payload: value
+    type: SET_LOADING_USER,
+    payload: value,
   };
 };
 
-export const setError = err => {
+export const setErrorUser = err => {
   return {
-    type: SET_ERROR,
-    payload: err
+    type: SET_ERROR_USER,
+    payload: err,
+  };
+};
+
+export const setLoadingAllUsers = value => {
+  return {
+    type: SET_LOADING_ALL_USERS,
+    payload: value,
+  };
+};
+
+export const setErrorAllUsers = err => {
+  return {
+    type: SET_ERROR_ALL_USERS,
+    payload: err,
+  };
+};
+
+export const setLoadingRecommendedUsers = value => {
+  return {
+    type: SET_LOADING_RECOMMENDED_USERS,
+    payload: value,
+  };
+};
+
+export const setErrorRecommendedUsers = err => {
+  return {
+    type: SET_ERROR_RECOMMENDED_USERS,
+    payload: err,
+  };
+};
+
+export const setLoadingRoom = value => {
+  return {
+    type: SET_LOADING_ROOM,
+    payload: value,
+  };
+};
+
+export const setErrorRoom = err => {
+  return {
+    type: SET_ERROR_ROOM,
+    payload: err,
   };
 };
 
 export const setRecommendedUsers = recommendedUsers => {
   return {
     type: SET_RECOMMENDED_USERS,
-    payload: recommendedUsers
+    payload: recommendedUsers,
   };
 };
 
 export const requestRecommendedUsers = () => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "GET",
-      url: "/users/recommendations",
+      method: 'GET',
+      url: '/users/recommendations',
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
-        dispatch(setLoading(false));
+        dispatch(setLoadingRecommendedUsers(false));
         dispatch(setRecommendedUsers(data));
       })
       .catch(console.log);
@@ -237,23 +285,23 @@ export const requestRecommendedUsers = () => {
 export const setCurrentUser = currentUser => {
   return {
     type: SET_CURRENT_USER,
-    payload: currentUser
+    payload: currentUser,
   };
 };
 
 export const requestCurrentUser = () => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "GET",
-      url: "/users/me",
+      method: 'GET',
+      url: '/users/me',
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
-        console.log(data, "dataneh");
-        dispatch(setLoading(false));
+        console.log(data, 'dataneh');
+        dispatch(setLoadingUser(false));
         dispatch(setCurrentUser(data));
       })
       .catch(console.log);
@@ -263,42 +311,42 @@ export const requestCurrentUser = () => {
 export const deleteInvite = roomId => {
   return {
     type: DELETE_INVITE,
-    payload: roomId
+    payload: roomId,
   };
 };
 
 export const requestAcceptInvitation = (roomId, userId) => {
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
   return dispatch => {
     axios({
-      method: "PATCH",
+      method: 'PATCH',
       url: `/rooms/${roomId}/invite/${userId}`,
       headers: {
-        access_token
-      }
+        access_token,
+      },
     })
       .then(({ data }) => {
         dispatch(deleteInvite(roomId));
         dispatch(requestRooms());
-        console.log(data, "dari requestAcceptInvitation");
+        console.log(data, 'dari requestAcceptInvitation');
       })
       .catch(console.log);
   };
 };
 
 export const fetchAllUsers = () => {
-  console.log("fetchAllUsers invoked");
-  const access_token = localStorage.getItem("access_token");
+  console.log('fetchAllUsers invoked');
+  const access_token = localStorage.getItem('access_token');
   console.log(access_token);
   return dispatch => {
     axios({
-      method: "GET",
-      url: "/users",
+      method: 'GET',
+      url: '/users',
       headers: {
-        access_token
-      }
+        access_token,
+      },
     }).then(({ data }) => {
-      dispatch(setLoading(false));
+      dispatch(setLoadingAllUsers(false));
       dispatch(setAllUsers(data));
     });
   };

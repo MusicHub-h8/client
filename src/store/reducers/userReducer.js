@@ -1,25 +1,22 @@
 import {
   SET_RECOMMENDED_USERS,
   SET_CURRENT_USER,
-  SET_ERROR,
-  SET_LOADING,
+  SET_ERROR_USER,
+  SET_LOADING_USER,
   DELETE_INVITE,
-  SET_ALL_USERS
-} from "../actions";
+} from '../actions';
 
 const currentUserOnLocalStorage = JSON.parse(
-  localStorage.getItem("currentUser")
+  localStorage.getItem('currentUser')
 );
 
 const initialState = {
   currentUser: currentUserOnLocalStorage || {
     pendingInvites: [],
-    instruments: []
+    instruments: [],
   },
-  recommendedUsers: [],
   loading: false,
   error: null,
-  allUsers: []
 };
 
 function userReducer(state = initialState, action) {
@@ -27,12 +24,12 @@ function userReducer(state = initialState, action) {
     case SET_RECOMMENDED_USERS:
       return {
         ...state,
-        recommendedUsers: action.payload
+        recommendedUsers: action.payload,
       };
     case SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: action.payload,
       };
     case DELETE_INVITE:
       return {
@@ -41,23 +38,18 @@ function userReducer(state = initialState, action) {
           ...state.currentUser,
           pendingInvites: state.currentUser.pendingInvites.filter(
             invite => invite._id !== action.payload
-          )
-        }
+          ),
+        },
       };
-    case SET_ALL_USERS:
+    case SET_ERROR_USER:
       return {
         ...state,
-        allUsers: action.payload
+        error: action.payload,
       };
-    case SET_ERROR:
+    case SET_LOADING_USER:
       return {
         ...state,
-        error: action.payload
-      };
-    case SET_LOADING:
-      return {
-        ...state,
-        loading: action.payload
+        loading: action.payload,
       };
     default:
       return state;
