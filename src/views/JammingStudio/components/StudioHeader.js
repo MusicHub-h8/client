@@ -1,66 +1,80 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { requestExportRoom } from '../../../store/actions'
-import FormAdd from './FormAdd'
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { requestExportRoom } from "../../../store/actions";
+import FormAdd from "./FormAdd";
 
 export default function StudioHeader(props) {
-  const dispatch = useDispatch()
-  const [showForm, setShowForm] = useState(false)
+  const dispatch = useDispatch();
+  const [showForm, setShowForm] = useState(false);
   // const roomOwner = props.roomDetail.roomOwner;
-  const players = props.roomDetail.userIds
-  const history = useHistory()
+  const players = props.roomDetail.userIds;
+  const history = useHistory();
+  const filePath = useSelector(state => state.roomReducer.exportedRoom);
+  const [showExport, setShowExport] = useState(false);
 
   const handleGoBack = () => {
-    history.push('/dashboard/studios')
-  }
+    history.push("/dashboard/studios");
+  };
   const handleExport = () => {
-    dispatch(requestExportRoom(props.roomDetail._id))
-  }
+    dispatch(requestExportRoom(props.roomDetail._id));
+    setShowExport(true);
+  };
   const toggleForm = () => {
-    setShowForm(!showForm)
-  }
+    setShowForm(!showForm);
+  };
 
   useEffect(() => {
-    console.log(players)
-  }, [players])
+    console.log(players);
+  }, [players]);
   return (
     <>
-      <div className='studio-HeaderContainer text-white'>
-        <div className='studio-heading'>
-          <div className='leftSide'>
+      <div className="studio-HeaderContainer text-white">
+        <div className="studio-heading">
+          <div className="leftSide">
             <i
-              style={{ width: '2rem' }}
-              className='faBtn fas fa-2x fa-chevron-left'
+              style={{ width: "2rem" }}
+              className="faBtn fas fa-2x fa-chevron-left"
               onClick={() => {
-                handleGoBack()
+                handleGoBack();
               }}
             ></i>
             <button
-              className='dash-add-btn'
-              onClick={(event) => {
-                toggleForm()
+              className="dash-add-btn"
+              onClick={event => {
+                toggleForm();
               }}
             >
-              <i class='fas fa-plus'></i> Add Track
+              <i class="fas fa-plus"></i> Add Track
             </button>
             <button
-              className='dash-add-btn ml-3'
-              onClick={(event) => {
-                handleExport()
+              className="dash-add-btn ml-3"
+              onClick={event => {
+                handleExport();
               }}
             >
-              <i class='fas'></i> Export Tracks
+              <i class="fas"></i> Export Tracks
             </button>
+            {showExport && (
+              <button
+                className="dash-add-btn ml-3"
+                onClick={() => {
+                  console.log(filePath);
+                  window.location.href = filePath;
+                }}
+              >
+                <i class="fas"></i> Download
+              </button>
+            )}
           </div>
-          <div className='rightSide'>
-            <div className='playerAvaContainer'>
+          <div className="rightSide">
+            <div className="playerAvaContainer">
               {players &&
-                players.map((player) => (
+                players.map(player => (
                   <img
                     src={player.avatar}
                     alt={player.display_name}
-                    className='playerAva'
+                    className="playerAva"
                   />
                 ))}
               {/* {roomOwner && (
@@ -74,7 +88,7 @@ export default function StudioHeader(props) {
                 <img
                   src={props.roomDetail.roomOwner.avatar}
                   alt={props.roomDetail.roomOwner.display_name}
-                  className='playerAva'
+                  className="playerAva"
                 />
               )}
             </div>
@@ -83,5 +97,5 @@ export default function StudioHeader(props) {
         {showForm && <FormAdd />}
       </div>
     </>
-  )
+  );
 }
