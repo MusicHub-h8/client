@@ -19,6 +19,23 @@ export const SET_ALL_USERS = 'SET_ALL_USERS'
 export const DELETE_TRACK = 'DELETE_TRACK'
 export const ADD_TRACK = 'ADD_TRACK'
 
+export const EXPORT_ROOM = 'EXPORT_ROOM'
+export const requestExportRoom = (roomId) => {
+  console.log('requesting', roomId, 'to export')
+  const access_token = localStorage.getItem('access_token')
+  axios({
+    method: 'GET',
+    url: `/rooms/export/${roomId}`,
+    headers: {
+      access_token,
+    },
+  })
+    .then(({ data }) => {
+      console.log(data)
+    })
+    .catch(console.log)
+}
+
 // ACTIONS FOR PLAYBACKS
 export const PUSH_LOADEDTRACK = 'PUSH_LOADEDTRACK'
 export const pushTrack = (trackId) => {
@@ -65,7 +82,6 @@ export const clearTracks = () => {
 export const requestAddTrack = (trackInfo) => {
   const access_token = localStorage.getItem('access_token')
   const { instrument, base64encodedFile, roomId } = trackInfo
-  console.log(base64encodedFile)
   return (dispatch) => {
     const url = `/tracks/${roomId}`
     axios({
@@ -81,7 +97,6 @@ export const requestAddTrack = (trackInfo) => {
     })
       .then(({ data }) => {
         dispatch(addTrack(data))
-        console.log(data, 'ini dari hasil uplot')
       })
       .catch(console.log)
   }

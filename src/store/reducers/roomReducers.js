@@ -7,7 +7,8 @@ import {
   SET_ERROR_ROOM,
   DELETE_TRACK,
   CLEAR_TRACKS,
-} from '../actions/';
+  EXPORT_ROOM,
+} from '../actions/'
 
 const initialState = {
   myRooms: {
@@ -22,7 +23,7 @@ const initialState = {
       userIds: [],
     },
   },
-};
+}
 
 export default function roomReducers(state = initialState, action) {
   switch (action.type) {
@@ -30,7 +31,11 @@ export default function roomReducers(state = initialState, action) {
       return {
         ...state,
         activeRoom: action.payload,
-      };
+      }
+    case EXPORT_ROOM:
+      return {
+        ...state,
+      }
     case GET_MYROOMS:
       return {
         ...state,
@@ -38,7 +43,7 @@ export default function roomReducers(state = initialState, action) {
           owned: action.payload.owned,
           involved: action.payload.involved,
         },
-      };
+      }
     case ADD_TRACK:
       return {
         ...state,
@@ -46,23 +51,23 @@ export default function roomReducers(state = initialState, action) {
           detail: state.activeRoom.detail,
           tracks: [...state.activeRoom.tracks, action.payload],
         },
-      };
+      }
     case DELETE_TRACK:
-      const newTracks = state.activeRoom.tracks.filter(track => {
-        return track._id !== action.payload;
-      });
+      const newTracks = state.activeRoom.tracks.filter((track) => {
+        return track._id !== action.payload
+      })
       return {
         ...state,
         activeRoom: {
           detail: state.activeRoom.detail,
           tracks: newTracks,
         },
-      };
+      }
     case CLEAR_TRACKS:
       return {
         ...state,
         activeRoom: initialState.activeRoom,
-      };
+      }
     case ADD_ROOM:
       return {
         ...state,
@@ -70,18 +75,18 @@ export default function roomReducers(state = initialState, action) {
           ...state.myRooms,
           owned: [action.payload, ...state.myRooms.owned],
         },
-      };
+      }
     case SET_ERROR_ROOM:
       return {
         ...state,
         error: action.payload,
-      };
+      }
     case SET_LOADING_ROOM:
       return {
         ...state,
         loading: action.payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
