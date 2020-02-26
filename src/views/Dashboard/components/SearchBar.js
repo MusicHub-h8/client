@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-
+import React, { useState } from 'react'
+import './styles.css'
 export default function Searchbar(props) {
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('')
 
-  const handleChange = event => {
-    setKeyword(event.target.value);
-    props.searchByRoomTitle(event.target.value);
-  };
+  const handleChange = (event) => {
+    setKeyword(event.target.value)
+    props.searchByRoomTitle(event.target.value)
+  }
 
   return (
     <div>
       <form>
         <input
-          type="search"
+          className='searchBar'
+          type='search'
+          autoComplete='off'
           value={keyword}
-          style={{ borderRadius: 6, width: "15rem" }}
-          onChange={event => handleChange(event)}
-          name="search"
-          placeholder="Search by room title"
+          onChange={(event) => handleChange(event)}
+          name='search'
+          placeholder='Search by room title'
         ></input>
       </form>
     </div>
-  );
+  )
 }
