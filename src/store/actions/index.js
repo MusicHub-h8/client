@@ -58,31 +58,26 @@ export const clearTracks = () => {
 
 export const requestAddTrack = trackInfo => {
   const access_token = localStorage.getItem("access_token");
-  const { instrument, selectedFile, roomId } = trackInfo;
+  const { instrument, base64encodedFile, roomId } = trackInfo;
+  console.log(base64encodedFile);
   return dispatch => {
     const url = `/tracks/${roomId}`;
-    const config = {
+    axios({
+      method: "POST",
+      url,
+      data: {
+        instrument,
+        track: base64encodedFile
+      },
       headers: {
-        "content-type": "multipart/form-data",
         access_token
       }
-    };
-    let formData = new FormData();
-    formData.append("instrument", instrument);
-    formData.append("track", selectedFile);
-    console.log(trackInfo);
-    console.log(url);
-    console.log(config);
-    axios
-      .post(url, formData, config)
+    })
       .then(({ data }) => {
-        console.log("sukses upload!");
         dispatch(addTrack(data));
+        console.log(data, "ini dari hasil uplot");
       })
-      .catch(err => {
-        console.log("---------------------------------");
-        console.log(err.response);
-      });
+      .catch(console.log);
   };
 };
 
@@ -138,6 +133,7 @@ export const requestRoomDetail = roomId => {
       }
     })
       .then(({ data }) => {
+        console.log("request room detail jalan");
         dispatch(setActiveRoom(data));
       })
       .catch(err => {
