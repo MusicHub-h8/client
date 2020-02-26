@@ -3,6 +3,9 @@
   min-height: 5rem;
   background-color: #0f2833;
 }
+.leftSide {
+  display: flex;
+}
 .studio-heading {
   display: flex;
   justify-content: space-between;
