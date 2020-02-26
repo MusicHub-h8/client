@@ -4,6 +4,7 @@ import SocketIOFileUpload from 'socketio-file-upload'
 import { Base64 } from 'js-base64'
 
 import { requestAddTrack } from '../../../store/actions'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 export default function FormAdd() {
   const roomDetail = useSelector((state) => state.roomReducer.activeRoom.detail)
@@ -50,14 +51,48 @@ export default function FormAdd() {
         handleSubmit(event)
       }}
     >
-      <input
+      <Dropdown>
+        <Dropdown.Toggle variant='info' id='dropdown-basic'>
+          {instrument.charAt(0).toUpperCase() + instrument.slice(1)}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => handleInstrumentInput('guitar')}>
+            Guitar
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('bass')}>
+            Bass
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('drum')}>
+            Drum
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('piano')}>
+            Piano
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('keyboard')}>
+            Keyboard
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('vocal')}>
+            Vocal
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('violin')}>
+            Violin
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('acapella')}>
+            Acapella
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleInstrumentInput('saxophone')}>
+            Saxophone
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      {/* <input
         value={instrument}
-        onChange={(event) => {
-          handleInstrumentInput(event.target.value)
+        onChange={event => {
+          handleInstrumentInput(event.target.value);
         }}
-        className='form-control form-instrument'
-        placeholder='instrument name'
-      />
+        className="form-control form-instrument"
+        placeholder="instrument name"
+      /> */}
       <div className='custom-file form-upload mr-2'>
         <input
           onChange={(event) => {
