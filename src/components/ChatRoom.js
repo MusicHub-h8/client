@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { GiftedChat } from 'react-web-gifted-chat';
-import firebase from 'firebase';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import React, { Component } from "react";
+import { GiftedChat } from "react-web-gifted-chat";
+import firebase from "firebase";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
@@ -11,7 +11,7 @@ const config = {
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDER,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDER
 };
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
@@ -27,13 +27,13 @@ export default class ChatRoom extends Component {
       chatUser: {
         avatar: this.props.currentUser.avatar,
         id: this.props.currentUser._id,
-        name: this.props.currentUser.display_name,
-      },
+        name: this.props.currentUser.display_name
+      }
     };
   }
 
   componentDidMount() {
-    console.log(this.props, 'ini props');
+    console.log(this.props, "ini props");
     this.loadMessages();
   }
 
@@ -47,10 +47,10 @@ export default class ChatRoom extends Component {
     };
     firebase
       .database()
-      .ref('/messages/')
-      .orderByChild('roomId')
+      .ref("/messages/")
+      .orderByChild("roomId")
       .equalTo(this.props.roomId)
-      .on('child_added', callback);
+      .on("child_added", callback);
   }
 
   onSend(messages) {
@@ -62,10 +62,10 @@ export default class ChatRoom extends Component {
   saveMessage(message) {
     return firebase
       .database()
-      .ref('/messages/')
+      .ref("/messages/")
       .push({ ...message, roomId: this.props.roomId })
       .catch(function(error) {
-        console.error('Error saving message to Database:', error);
+        console.error("Error saving message to Database:", error);
       });
   }
 
@@ -81,9 +81,9 @@ export default class ChatRoom extends Component {
 
   renderChatHeader() {
     return (
-      <AppBar position='static' color='secondary'>
+      <AppBar position="static" color="secondary">
         <Toolbar>
-          <Typography variant='h6' color='inherit'>
+          <Typography variant="h6" color="inherit">
             {this.props.roomDetail.music_title}
           </Typography>
         </Toolbar>
@@ -105,19 +105,19 @@ export default class ChatRoom extends Component {
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '100vh',
-    width: '18rem',
-    backgroundColor: '#091d27',
+    display: "flex",
+    flexDirection: "row",
+    height: "100vh",
+    width: "18rem",
+    backgroundColor: "#091d27"
   },
   chat: {
-    display: 'flex',
+    display: "flex",
     flex: 3,
-    flexDirection: 'column',
-    borderWidth: '1px',
-    borderRightStyle: 'solid',
-    borderLeftStyle: 'solid',
-    backgroundColor: '#091d27',
-  },
+    flexDirection: "column",
+    borderWidth: "1px",
+    borderRightStyle: "solid",
+    borderLeftStyle: "solid",
+    backgroundColor: "#091d27"
+  }
 };

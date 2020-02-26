@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   requestRooms,
-  setLoading,
+  setLoadingRoom,
   requestCurrentUser,
   setCurrentUser,
 } from '../../store/actions'
@@ -39,7 +39,7 @@ const Dashboard = () => {
   }, [dispatch, socket])
 
   useEffect(() => {
-    dispatch(setLoading(true))
+    dispatch(setLoadingRoom(true))
     dispatch(requestRooms())
   }, [dispatch])
 
@@ -93,7 +93,14 @@ const Dashboard = () => {
   return (
     <>
       <div className='dash-container'>
-        {addStudioForm()}
+        <ReactCSSTransitionGroup
+          transitionName='example'
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
+        >
+          {addStudioForm()}
+        </ReactCSSTransitionGroup>
+
         <div className='dash-side-bar'>
           <h1 className='text-lobster text-white dash-logo'>MusicHub</h1>
           <div className='dash-nav'>
@@ -152,6 +159,7 @@ const Dashboard = () => {
                 height: '30px',
                 width: '25px',
                 position: 'relative',
+                marginRight: '2rem',
               }}
             >
               <Link to={`${url}/notifications`}>
@@ -173,11 +181,6 @@ const Dashboard = () => {
           </div>
         </div>
         <main className='dash-main'>
-          <ReactCSSTransitionGroup
-            transitionName='example'
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
-          ></ReactCSSTransitionGroup>
           <div className='dash-content'>
             <Switch>
               <Route exact path={path}>

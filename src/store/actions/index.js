@@ -2,8 +2,14 @@ import axios from '../../api/axiosInstance'
 
 export const GET_MYROOMS = 'GET_MYROOMS'
 export const ADD_ROOM = 'ADD_ROOM'
-export const SET_LOADING = 'SET_LOADING'
-export const SET_ERROR = 'SET_ERROR'
+export const SET_LOADING_USER = 'SET_LOADING_USER'
+export const SET_ERROR_USER = 'SET_ERROR_USER'
+export const SET_LOADING_ALL_USERS = 'SET_LOADING_ALL_USER'
+export const SET_ERROR_ALL_USERS = 'SET_ERROR_ALL_USER'
+export const SET_LOADING_RECOMMENDED_USERS = 'SET_LOADING_RECOMMENDED_USER'
+export const SET_ERROR_RECOMMENDED_USERS = 'SET_ERROR_RECOMMENDED_USER'
+export const SET_LOADING_ROOM = 'SET_LOADING_ROOM'
+export const SET_ERROR_ROOM = 'SET_ERROR_ROOM'
 export const GET_TRACKS = 'GET_TRACKS'
 export const GET_ROOMDETAILS = 'GET_ROOMDETAILS'
 export const SET_RECOMMENDED_USERS = 'SET_RECOMMENDED_USERS'
@@ -59,21 +65,25 @@ export const clearTracks = () => {
 export const requestAddTrack = (trackInfo) => {
   const access_token = localStorage.getItem('access_token')
   const { instrument, base64encodedFile, roomId } = trackInfo
+  console.log(base64encodedFile)
   return (dispatch) => {
     const url = `/tracks/${roomId}`
     axios({
       method: 'POST',
       url,
+      data: {
+        instrument,
+        track: base64encodedFile,
+      },
       headers: {
         access_token,
       },
-      data: {
-        instrument,
-        base64encodedFile,
-      },
-    }).then(({ data }) => {
-      console.log(data)
     })
+      .then(({ data }) => {
+        dispatch(addTrack(data))
+        console.log(data, 'ini dari hasil uplot')
+      })
+      .catch(console.log)
   }
 }
 
@@ -129,6 +139,7 @@ export const requestRoomDetail = (roomId) => {
       },
     })
       .then(({ data }) => {
+        console.log('request room detail jalan')
         dispatch(setActiveRoom(data))
       })
       .catch((err) => {
@@ -155,7 +166,7 @@ export const requestRooms = () => {
       },
     })
       .then(({ data }) => {
-        dispatch(setLoading(false))
+        dispatch(setLoadingRoom(false))
         dispatch(getRooms(data))
       })
       .catch(console.log)
@@ -190,16 +201,58 @@ export const requestAddRoom = (room) => {
   }
 }
 
-export const setLoading = (value) => {
+export const setLoadingUser = (value) => {
   return {
-    type: SET_LOADING,
+    type: SET_LOADING_USER,
     payload: value,
   }
 }
 
-export const setError = (err) => {
+export const setErrorUser = (err) => {
   return {
-    type: SET_ERROR,
+    type: SET_ERROR_USER,
+    payload: err,
+  }
+}
+
+export const setLoadingAllUsers = (value) => {
+  return {
+    type: SET_LOADING_ALL_USERS,
+    payload: value,
+  }
+}
+
+export const setErrorAllUsers = (err) => {
+  return {
+    type: SET_ERROR_ALL_USERS,
+    payload: err,
+  }
+}
+
+export const setLoadingRecommendedUsers = (value) => {
+  return {
+    type: SET_LOADING_RECOMMENDED_USERS,
+    payload: value,
+  }
+}
+
+export const setErrorRecommendedUsers = (err) => {
+  return {
+    type: SET_ERROR_RECOMMENDED_USERS,
+    payload: err,
+  }
+}
+
+export const setLoadingRoom = (value) => {
+  return {
+    type: SET_LOADING_ROOM,
+    payload: value,
+  }
+}
+
+export const setErrorRoom = (err) => {
+  return {
+    type: SET_ERROR_ROOM,
     payload: err,
   }
 }
@@ -222,7 +275,7 @@ export const requestRecommendedUsers = () => {
       },
     })
       .then(({ data }) => {
-        dispatch(setLoading(false))
+        dispatch(setLoadingRecommendedUsers(false))
         dispatch(setRecommendedUsers(data))
       })
       .catch(console.log)
@@ -247,7 +300,7 @@ export const requestCurrentUser = () => {
       },
     })
       .then(({ data }) => {
-        dispatch(setLoading(false))
+        dispatch(setLoadingUser(false))
         dispatch(setCurrentUser(data))
       })
       .catch(console.log)
@@ -292,7 +345,7 @@ export const fetchAllUsers = () => {
         access_token,
       },
     }).then(({ data }) => {
-      dispatch(setLoading(false))
+      dispatch(setLoadingAllUsers(false))
       dispatch(setAllUsers(data))
     })
   }
