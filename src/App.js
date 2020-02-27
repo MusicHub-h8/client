@@ -5,7 +5,7 @@ import DashboardView from "./views/Dashboard";
 import JammingStudio from "./views/JammingStudio";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import io from "socket.io-client";
-window.socket = io("http://localhost:4000");
+window.socket = io("http://localhost:4000/");
 
 function App() {
   return (

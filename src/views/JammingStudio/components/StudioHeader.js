@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { requestExportRoom } from "../../../store/actions";
 import FormAdd from "./FormAdd";
 
 export default function StudioHeader(props) {
+  const dispatch = useDispatch();
   const [showForm, setShowForm] = useState(false);
   // const roomOwner = props.roomDetail.roomOwner;
   const players = props.roomDetail.userIds;
   const history = useHistory();
+  const filePath = useSelector(state => state.roomReducer.exportedRoom);
+  const [showExport, setShowExport] = useState(false);
 
   const handleGoBack = () => {
     history.push("/dashboard/studios");
   };
+  const handleExport = () => {
+    dispatch(requestExportRoom(props.roomDetail._id));
+  };
   const toggleForm = () => {
     setShowForm(!showForm);
   };
+
+  useEffect(() => {
+    if (filePath.length > 0) {
+      setShowExport(true);
+    }
+  }, [filePath]);
 
   useEffect(() => {
     console.log(players);
@@ -39,6 +52,24 @@ export default function StudioHeader(props) {
             >
               <i class="fas fa-plus"></i> Add Track
             </button>
+            <button
+              className="dash-add-btn ml-3"
+              onClick={event => {
+                handleExport();
+              }}
+            >
+              <i class="fas"></i> Export Tracks
+            </button>
+            {showExport && (
+              <button
+                className="dash-add-btn ml-3"
+                onClick={() => {
+                  window.location.href = `http://localhost:4000/static/${filePath}`;
+                }}
+              >
+                <i class="fas"></i> Download
+              </button>
+            )}
           </div>
           <div className="rightSide">
             <div className="playerAvaContainer">
