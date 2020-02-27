@@ -18,11 +18,16 @@ export default function StudioHeader(props) {
   };
   const handleExport = () => {
     dispatch(requestExportRoom(props.roomDetail._id));
-    setShowExport(true);
   };
   const toggleForm = () => {
     setShowForm(!showForm);
   };
+
+  useEffect(() => {
+    if (filePath.length > 0) {
+      setShowExport(true);
+    }
+  }, [filePath]);
 
   useEffect(() => {
     console.log(players);
@@ -59,8 +64,7 @@ export default function StudioHeader(props) {
               <button
                 className="dash-add-btn ml-3"
                 onClick={() => {
-                  console.log(filePath);
-                  window.location.href = filePath;
+                  window.location.href = `http://localhost:4000/static/${filePath}`;
                 }}
               >
                 <i class="fas"></i> Download
